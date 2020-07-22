@@ -5,7 +5,7 @@
  */
 
 require('./bootstrap');
-
+import Vuetify from "vuetify";
 window.Vue = require('vue');
 
 /**
@@ -27,6 +27,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.use(Vuetify);
+const vuetifyOptions={};
 const app = new Vue({
+    vuetify: new Vuetify(vuetifyOptions),
     el: '#app',
 });
