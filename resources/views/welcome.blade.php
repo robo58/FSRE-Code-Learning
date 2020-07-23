@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <example-component></example-component>
+    <home-page></home-page>
 
 @endsection
