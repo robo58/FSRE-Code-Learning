@@ -5,7 +5,7 @@
  */
 
 require('./bootstrap');
-import Vuetify from "vuetify";
+import BootstrapVue from 'bootstrap-vue';
 window.Vue = require('vue');
 
 /**
@@ -29,9 +29,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.use(Vuetify);
-const vuetifyOptions={};
+Vue.use(BootstrapVue);
 const app = new Vue({
-    vuetify: new Vuetify(vuetifyOptions),
-    el: '#app',
+    el: '#app'
 });
