@@ -1920,6 +1920,86 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -80270,26 +80350,229 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c(
+        "b-container",
+        [
+          _c(
+            "b-row",
+            { staticClass: "py-3" },
+            [
+              _c(
+                "b-col",
+                { attrs: { cols: "8" } },
+                [
+                  _c(
+                    "b-jumbotron",
+                    {
+                      scopedSlots: _vm._u([
+                        {
+                          key: "header",
+                          fn: function() {
+                            return [_vm._v("Fsre-Code-Learning")]
+                          },
+                          proxy: true
+                        },
+                        {
+                          key: "lead",
+                          fn: function() {
+                            return [
+                              _vm._v(
+                                "\n                        Learn how to code fast and effective with us.\n                    "
+                              )
+                            ]
+                          },
+                          proxy: true
+                        }
+                      ])
+                    },
+                    [
+                      _vm._v(" "),
+                      _vm._v(" "),
+                      _c("hr", { staticClass: "my-4" }),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        { attrs: { variant: "primary", href: "#" } },
+                        [_vm._v("Do Something")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        { attrs: { variant: "success", href: "#" } },
+                        [_vm._v("Do Something Else")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            { staticClass: "py-3" },
+            [
+              _c("b-col", { attrs: { cols: "4" } }),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { attrs: { cols: "8" } },
+                [
+                  _c(
+                    "b-tabs",
+                    {
+                      staticClass: "border border-info",
+                      attrs: { "content-class": "mt-3", fill: "" }
+                    },
+                    [
+                      _c("b-tab", { attrs: { title: "First", active: "" } }, [
+                        _c("p", [_vm._v("I'm the first tab")])
+                      ]),
+                      _vm._v(" "),
+                      _c("b-tab", { attrs: { title: "Second" } }, [
+                        _c("p", [_vm._v("I'm the second tab")])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-tab",
+                        { attrs: { title: "Disabled", disabled: "" } },
+                        [_c("p", [_vm._v("I'm a disabled tab!")])]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            { staticClass: "py-3" },
+            [
+              _c("b-col", { attrs: { cols: "2" } }),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { attrs: { cols: "8" } },
+                [
+                  _c(
+                    "b-carousel",
+                    {
+                      staticStyle: { "text-shadow": "1px 1px 2px #333" },
+                      attrs: {
+                        id: "carousel-1",
+                        interval: 4000,
+                        controls: "",
+                        indicators: "",
+                        background: "#ababab",
+                        "img-width": "1024",
+                        "img-height": "480"
+                      },
+                      on: {
+                        "sliding-start": _vm.onSlideStart,
+                        "sliding-end": _vm.onSlideEnd
+                      },
+                      model: {
+                        value: _vm.slide,
+                        callback: function($$v) {
+                          _vm.slide = $$v
+                        },
+                        expression: "slide"
+                      }
+                    },
+                    [
+                      _c("b-carousel-slide", {
+                        attrs: {
+                          caption: "First slide",
+                          text:
+                            "Nulla vitae elit libero, a pharetra augue mollis interdum.",
+                          "img-src": "https://picsum.photos/1024/480/?image=52"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-carousel-slide",
+                        {
+                          attrs: {
+                            "img-src":
+                              "https://picsum.photos/1024/480/?image=54"
+                          }
+                        },
+                        [_c("h1", [_vm._v("Hello world!")])]
+                      ),
+                      _vm._v(" "),
+                      _c("b-carousel-slide", {
+                        attrs: {
+                          "img-src": "https://picsum.photos/1024/480/?image=58"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("b-carousel-slide", {
+                        scopedSlots: _vm._u([
+                          {
+                            key: "img",
+                            fn: function() {
+                              return [
+                                _c("img", {
+                                  staticClass: "d-block img-fluid w-100",
+                                  attrs: {
+                                    width: "1024",
+                                    height: "480",
+                                    src:
+                                      "https://picsum.photos/1024/480/?image=55",
+                                    alt: "image slot"
+                                  }
+                                })
+                              ]
+                            },
+                            proxy: true
+                          }
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-carousel-slide",
+                        {
+                          attrs: {
+                            caption: "Blank Image",
+                            "img-blank": "",
+                            "img-alt": "Blank image"
+                          }
+                        },
+                        [
+                          _c("p", [
+                            _vm._v(
+                              "\n                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt\n                            a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.\n                        "
+                            )
+                          ])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _vm._v("Example Component")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _vm._v("\n            I'm an example component.\n        ")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

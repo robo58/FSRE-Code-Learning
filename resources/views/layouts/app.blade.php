@@ -28,6 +28,8 @@
                 <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
                 <b-collapse id="nav-collapse" is-nav>
+
+                    {{-- Left aligned nav items --}}
                     <b-navbar-nav>
                     </b-navbar-nav>
 
@@ -63,9 +65,7 @@
             </b-navbar>
         </div>
         <main>
-            <div class="container">
-                @yield('content')
-            </div>
+            @yield('content')
         </main>
     </div>
 </body>
