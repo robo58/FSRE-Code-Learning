@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <home-page></home-page>
+    <guest-page></guest-page>
 
 @endsection
