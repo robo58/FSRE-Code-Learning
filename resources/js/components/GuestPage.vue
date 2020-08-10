@@ -3,7 +3,7 @@
         <!--    Site template    -->
         <b-container>
             <b-row class="py-3">
-                <b-col cols="8">
+                <b-col>
                     <b-jumbotron>
                         <template v-slot:header>Fsre-Code-Learning</template>
 
@@ -19,9 +19,8 @@
                 </b-col>
             </b-row>
 
-            <b-row class="py-3">
-                <b-col cols="4"></b-col>
-                <b-col cols="8">
+            <b-row class="py-3 justify-content-center">
+                <b-col>
                     <b-tabs content-class="mt-3" fill class="border border-info">
                         <b-tab title="First" active><p>I'm the first tab</p></b-tab>
                         <b-tab title="Second"><p>I'm the second tab</p></b-tab>
@@ -31,11 +30,9 @@
             </b-row>
 
             <b-row class="py-3">
-                <b-col cols="2"></b-col>
-                <b-col cols="8">
+                <b-col>
                     <b-carousel
                         id="carousel-1"
-                        v-model="slide"
                         :interval="4000"
                         controls
                         indicators
@@ -43,8 +40,6 @@
                         img-width="1024"
                         img-height="480"
                         style="text-shadow: 1px 1px 2px #333;"
-                        @sliding-start="onSlideStart"
-                        @sliding-end="onSlideEnd"
                     >
                         <!-- Text slides with image -->
                         <b-carousel-slide
@@ -86,6 +81,22 @@
                 </b-col>
             </b-row>
 
+            <b-row class="py-3 justify-content-center">
+                <b-col cols="12">
+                    <b-jumbotron>
+                        <template v-slot:header>Fsre-Code-Learning</template>
+
+                        <template v-slot:lead>
+                            Learn how to code fast and effective with us.
+                        </template>
+
+                        <hr class="my-4">
+
+                        <b-button variant="primary" href="#">Do Something</b-button>
+                        <b-button variant="success" href="#">Do Something Else</b-button>
+                    </b-jumbotron>
+                </b-col>
+            </b-row>
         </b-container>
     </div>
 </template>

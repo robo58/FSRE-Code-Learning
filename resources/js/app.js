@@ -4,10 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-import BootstrapVue from 'bootstrap-vue';
-window.Vue = require('vue');
 
+require('./bootstrap');
+import { BootstrapVue,BootstrapVueIcons } from 'bootstrap-vue';
+window.Vue = require('vue');
+import VueMce from 'vue-mce';
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -30,6 +31,11 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  */
 
 Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
+Vue.use(VueMce);
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+
+    }
 });
