@@ -50,17 +50,25 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative; padding-left: 50px;" v-pre>
+                                    <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="height: 32px; width: 32px; position: absolute; top:10px; left:10px; border-radius: 50%;">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    @can('manage-users')
+                                        <a class="dropdown-item fa fa-users pull-left" href="{{ route('superadmin.users.index') }}">
+                                            User Management
+                                        </a>
+                                    @endcan
+                                        <a class="dropdown-item fa fa-user" href="{{ route('profile') }}">
+                                            Profile
+                                        </a>
+                                    <a class="dropdown-item fa fa-sign-out" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -73,7 +81,10 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                @include('partials.alerts')
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>
