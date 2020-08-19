@@ -9,3 +9,12 @@
 
 // Font awesome
 @import "~font-awesome/scss/font-awesome";
+@import '~@mdi/font/css/materialdesignicons.css';
+
+// Your variable overrides
+$body-bg: #000;
+$body-color: #111;
+
+// BootstrapVue and its default variables
+@import '~bootstrap-vue/src/index.scss';
+
