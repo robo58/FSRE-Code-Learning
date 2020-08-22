@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 Route::get('/superadmin', function(){
     return 'you are superadmin';
@@ -34,3 +34,9 @@ Route::post('/profile', 'SuperAdmin\UsersController@update_profile')->name('prof
 
 Route::get('/password-change', 'SuperAdmin\UsersController@password_change_view')->name('password-change');
 Route::post('/password-change', 'SuperAdmin\UsersController@password_update')->name('password-update');
+
+Route::get('/files/create', 'SuperAdmin\DocumentsController@create')->name('files-create');
+Route::post('/files', 'SuperAdmin\DocumentsController@store')->name('files-upload');
+Route::get('/files/all', 'SuperAdmin\DocumentsController@index')->name('files-show-all');
+Route::get('/files/{id}', 'SuperAdmin\DocumentsController@show')->name('file-show');
+Route::get('/files/download/{file}', 'SuperAdmin\DocumentsController@download');

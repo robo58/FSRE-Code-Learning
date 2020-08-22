@@ -4,4 +4,6 @@
 
     <guest-page></guest-page>
 
+    <a href="/files/create">Dokumenti</a>
+
 @endsection
