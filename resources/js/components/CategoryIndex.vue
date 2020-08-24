@@ -1,12 +1,18 @@
 <template>
     <b-container class="py-4">
-        <h3>Categories</h3>
-        <b-button v-b-modal.modal-create>Create new category</b-button>
+        <b-row>
+            <b-col md="10">
+                <h3>Categories</h3>
+            </b-col>
+            <b-col md="2">
+                <b-button v-b-modal.modal-create>Create new category</b-button>
+            </b-col>
+        </b-row>
         <b-table responsive="true" hover :items="categories" :fields="fields" primary-key="id">
             <template v-slot:cell(buttons)="data">
                 <b-button-group>
-                    <b-button variant="info" v-b-modal.modal-edit @click="setEdit(data.item)">Edit</b-button>
-                    <b-button variant="danger" @click="deleteCategory(data.item)">Delete</b-button>
+                    <b-button variant="info" v-b-modal.modal-edit @click="setEdit(data.item)"><b-icon-pencil></b-icon-pencil></b-button>
+                    <b-button variant="danger" @click="deleteCategory(data.item)"><b-icon-trash-fill></b-icon-trash-fill></b-button>
                 </b-button-group>
             </template>
         </b-table>
@@ -21,8 +27,8 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-                <b-button variant="primary" @click="$bvModal.hide('modal-create'), createCategory(newCategoryName)">Create</b-button>
                 <b-button variant="secondary" @click="$bvModal.hide('modal-create')">Cancel</b-button>
+                <b-button variant="primary" @click="$bvModal.hide('modal-create'), createCategory(newCategoryName)">Create</b-button>
             </template>
         </b-modal>
 
@@ -36,8 +42,8 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-                <b-button variant="primary" @click="$bvModal.hide('modal-edit'), updateCategory(edit), setEdit()">Update</b-button>
                 <b-button variant="secondary" @click="$bvModal.hide('modal-edit'), setEdit()">Cancel</b-button>
+                <b-button variant="primary" @click="$bvModal.hide('modal-edit'), updateCategory(edit), setEdit()">Update</b-button>
             </template>
         </b-modal>
     </b-container>
@@ -102,6 +108,7 @@
             createCategory(name) {
                 axios.post('/categories', {name: name}).then(response => {
                    this.categories.push(response.data);
+                   this.newCategoryName = '';
                 });
             },
 
@@ -125,7 +132,7 @@
                     cancelTitle: 'NO',
                     footerClass: 'p-2',
                     hideHeaderClose: false,
-                    centered: true
+                    centered: false
                 })
                     .then(value => {
                         if(value) {

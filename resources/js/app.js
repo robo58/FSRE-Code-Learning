@@ -21,7 +21,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 /**
  * Manually register components like this example:
- * Vue.component('home-page', require('./components/HomePage.vue').default);
+ * Vue.component('home-page', require('./components/VueEditor.vue').default);
  */
 
 /**

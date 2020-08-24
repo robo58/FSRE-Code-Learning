@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/categories', 'CategoryController@indexJson');
+Route::get('/courses', 'CourseController@indexJson');
+Route::get('/courses/{course}/getParts', 'CourseController@partsJson');

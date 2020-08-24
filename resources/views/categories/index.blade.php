@@ -2,5 +2,4 @@
 
 @section('content')
     <category-index></category-index>
-
 @endsection
