@@ -7,6 +7,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Font awesome
+@import "~font-awesome/scss/font-awesome";
 @import '~@mdi/font/css/materialdesignicons.css';
 
 // Your variable overrides
@@ -33,3 +35,4 @@ html, body, main {
 
 // BootstrapVue and its default variables
 @import '~bootstrap-vue/src/index.scss';
+
