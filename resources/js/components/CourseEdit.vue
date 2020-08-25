@@ -79,19 +79,20 @@
         data() {
             return {
                 showSidebar: true,
-                selected: {},
+                parts: [],
+                selected: -1,
                 newTitle: '',
                 editTitle: '',
                 options: [
                     { text: 'Video lesson', value: 'video' },
                     { text: 'Text lesson', value: 'text' }
                 ],
-                parts: [],
             }
         },
 
         created(){
             axios.get('/api/courses/'+this.course.id+'/getParts').then(response => {
+                console.log(response.data)
                 this.parts = response.data;
                 if(this.parts.length > 0)
                 {
