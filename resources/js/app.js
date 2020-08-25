@@ -5,9 +5,11 @@
  */
 
 
+import vue from "vue";
+
 require('./bootstrap');
 import { BootstrapVue,BootstrapVueIcons } from 'bootstrap-vue';
-window.Vue = require('vue');
+window.Vue = vue;
 import VueMce from 'vue-mce';
 /**
  * The following block of code may be used to automatically register your

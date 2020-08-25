@@ -23,15 +23,10 @@ class CourseController extends Controller
         return Course::all()->toJson();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Course $course
-     * @return string
-     */
+
     public function partsJson(Course $course)
     {
-        return CoursePart::all()->where('course_id', $course->id)->toJson();
+        return CoursePart::where('course_id', $course->id)->get()->toJson();
     }
 
     /**
