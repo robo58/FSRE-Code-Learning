@@ -45,20 +45,31 @@
                             </b-nav-item>
                             @endif
                         @else
-                            <b-nav-item-dropdown right>
-                                <!-- Using 'button-content' slot -->
-                                <template v-slot:button-content>
-                                    <em>{{ Auth::user()->name }} <span class="caret"></span></em>
-                                </template>
-                                <b-dropdown-item href="{{ route('logout') }}"
-                                                 onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    Logout
-                                </b-dropdown-item>
-                            </b-nav-item-dropdown>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative; padding-left: 50px;" v-pre>
+                                    <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="height: 32px; width: 32px; position: absolute; top:10px; left:10px; border-radius: 50%;">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @can('manage-users')
+                                        <a class="dropdown-item fa fa-users pull-left" href="{{ route('superadmin.users.index') }}">
+                                            User Management
+                                        </a>
+                                    @endcan
+                                    <a class="dropdown-item fa fa-user" href="{{ route('profile') }}">
+                                        Profile
+                                    </a>
+                                    <a class="dropdown-item fa fa-sign-out" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
                         @endguest
                     </b-navbar-nav>
                 </b-collapse>
