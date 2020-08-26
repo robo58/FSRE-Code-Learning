@@ -8,6 +8,7 @@
         </b-col>
         <b-col>
             <b-button variant="info" class="text-white" @click="showSidebar = !showSidebar"><b-icon-arrow-bar-left v-if="showSidebar" /><b-icon-arrow-bar-right v-else /></b-button>
+            <h1 class="text-center">{{ course.title }}&nbsp&nbsp <b-button @click="setEditTitle(course.title)" v-b-modal.modal-edit-mainTitle><b-icon-pencil /></b-button></h1>
             <div v-for="part in parts" :key="part.id" v-if="part.id === selected">
                 <b-row class="justify-content-center" no-gutters>
                     <h2 class="text-info">{{ part.title }} &nbsp&nbsp <b-button @click="setEditTitle(part.title)" v-b-modal.modal-edit-title><b-icon-pencil /></b-button></h2>
@@ -64,7 +65,20 @@
                 <b-button variant="primary" @click="$bvModal.hide('modal-edit-title'), editPart()">Update</b-button>
             </template>
         </b-modal>
-
+        <b-modal id="modal-edit-mainTitle" title="Edit title">
+            <b-row>
+                <b-col md="3">
+                    <label>Part title:</label>
+                </b-col>
+                <b-col md="9">
+                    <b-input v-model="editTitle"></b-input>
+                </b-col>
+            </b-row>
+            <template v-slot:modal-footer>
+                <b-button variant="secondary" @click="$bvModal.hide('modal-edit-mainTitle')">Cancel</b-button>
+                <b-button variant="primary" @click="$bvModal.hide('modal-edit-mainTitle'), editMainTitle()">Update</b-button>
+            </template>
+        </b-modal>
     </b-row>
 </template>
 
@@ -107,6 +121,7 @@
                 axios.post('/courseParts', { title: newTitle, course_id: this.course.id })
                 .then(response => {
                     this.parts.push(response.data);
+                    this.newTitle = '';
                 })
             },
 
@@ -143,6 +158,12 @@
             setBody(val){
                 this.parts.filter(x=>x.id===this.selected)[0].body = val;
                 this.editPart();
+            },
+
+            editMainTitle(){
+                axios.patch('/courses/'+this.course.id,{ title: this.editTitle }).then(response=>{
+                    this.course = response.data;
+                });
             },
 
             editPart() {

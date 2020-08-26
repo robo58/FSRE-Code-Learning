@@ -7,6 +7,7 @@
         </b-col>
         <b-col>
             <b-button variant="info" class="text-white" @click="showSidebar = !showSidebar"><b-icon-arrow-bar-left v-if="showSidebar" /><b-icon-arrow-bar-right v-else /></b-button>
+            <h1 class="text-center">{{ course.title }}</h1>
             <div v-for="part in parts" :key="part.id" v-if="part.id === selected">
                 <b-jumbotron>
                     <template v-slot:header>{{ part.title }}</template>
