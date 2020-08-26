@@ -91,7 +91,9 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $course->title = $request->title;
+        $course->save();
+        return response($course,200);
     }
 
     /**
@@ -102,6 +104,8 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->courseParts()->delete();
+        $course->delete();
+        return response(null,204);
     }
 }

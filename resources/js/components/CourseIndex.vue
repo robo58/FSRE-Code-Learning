@@ -26,7 +26,7 @@
         <b-row class="justify-content-center py-4">
             <b-col sm="12">
                 <b-list-group class="text-center">
-                    <b-list-group-item v-for="course in courses" :key="course.id">
+                    <b-list-group-item v-for="course in courses" :key="course.id" href="#" v-b-modal.modal-item @click="selected = course.id">
                         <h5 class="mb-1">{{course.title}}</h5>
                         <small>{{getCategory(course.category_id)}}</small>,
                         <small>{{course.created_at}}</small>
@@ -34,6 +34,23 @@
                 </b-list-group>
             </b-col>
         </b-row>
+
+        <b-modal id="modal-item" title="Choose show,edit or delete">
+            <b-row class="d-flex justify-content-center">
+                <b-col>
+                    <b-button block variant="primary" @click="$bvModal.hide('modal-item')" :href="'/courses/'+selected"><b-icon-newspaper /></b-button>
+                </b-col>
+                <b-col>
+                    <b-button block variant="secondary" @click="$bvModal.hide('modal-item')" :href="'/courses/'+selected+'/edit'"><b-icon-pencil /></b-button>
+                </b-col>
+                <b-col>
+                    <b-button block variant="danger" @click="$bvModal.hide('modal-item'), deleteCourse(selected)"><b-icon-trash /></b-button>
+                </b-col>
+            </b-row>
+            <template v-slot:modal-footer>
+                <br />
+            </template>
+        </b-modal>
     </b-container>
 </template>
 
@@ -45,6 +62,7 @@
             return {
                 courses: [],
                 categories: [],
+                selected: {},
                 newCourse: {
                     title: null,
                     category: null
@@ -75,7 +93,29 @@
                 .then(response => {
                     this.courses.push(response.data);
                 });
-            }
+            },
+
+            deleteCourse (id) {
+                this.$bvModal.msgBoxConfirm('Are you sure you want to delete this course.', {
+                    title: 'Please Confirm',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'danger',
+                    okTitle: 'YES',
+                    cancelTitle: 'NO',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: false
+                })
+                    .then(value => {
+                        if(value) {
+                            axios.delete('/courses/' + id)
+                                .then(response => {
+                                    this.$delete(this.courses, this.courses.findIndex(x => x.id === id))
+                                });
+                        }
+                    })
+            },
 
         }
     }
