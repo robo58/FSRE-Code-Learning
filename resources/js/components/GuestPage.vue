@@ -1,7 +1,7 @@
 <template>
     <div>
         <!--    Site template    -->
-        <b-container>
+        <b-container class="border-right border-left">
             <b-row class="py-3">
                 <b-col>
                     <b-jumbotron>
@@ -10,22 +10,7 @@
                         <template v-slot:lead>
                             Learn how to code fast and effective with us.
                         </template>
-
-                        <hr class="my-4">
-
-                        <b-button variant="primary" href="#">Do Something</b-button>
-                        <b-button variant="success" href="#">Do Something Else</b-button>
                     </b-jumbotron>
-                </b-col>
-            </b-row>
-
-            <b-row class="py-3 justify-content-center">
-                <b-col>
-                    <b-tabs content-class="mt-3" fill class="border border-info">
-                        <b-tab title="First" active><p>I'm the first tab</p></b-tab>
-                        <b-tab title="Second"><p>I'm the second tab</p></b-tab>
-                        <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
-                    </b-tabs>
                 </b-col>
             </b-row>
 
@@ -41,70 +26,40 @@
                         img-height="480"
                         style="text-shadow: 1px 1px 2px #333;"
                     >
-                        <!-- Text slides with image -->
                         <b-carousel-slide
-                            caption="First slide"
-                            text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-                            img-src="https://picsum.photos/1024/480/?image=52"
-                        ></b-carousel-slide>
-
-                        <!-- Slides with custom text -->
-                        <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-                            <h1>Hello world!</h1>
-                        </b-carousel-slide>
-
-                        <!-- Slides with image only -->
-                        <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
-
-                        <!-- Slides with img slot -->
-                        <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-                        <b-carousel-slide>
-                            <template v-slot:img>
-                                <img
-                                    class="d-block img-fluid w-100"
-                                    width="1024"
-                                    height="480"
-                                    src="https://picsum.photos/1024/480/?image=55"
-                                    alt="image slot"
-                                >
-                            </template>
-                        </b-carousel-slide>
-
-                        <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-                        <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-                                a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-                            </p>
-                        </b-carousel-slide>
+                            v-for = "course in courses"
+                            :key = "course.id"
+                            :caption="course.title"
+                            img-blank
+                            :img-blank-color="random_rgba"
+                        ><b-button info :href="'/courses/'+course.id" class="w-100">Go to course</b-button></b-carousel-slide>
                     </b-carousel>
                 </b-col>
             </b-row>
 
-            <b-row class="py-3 justify-content-center">
-                <b-col cols="12">
-                    <b-jumbotron>
-                        <template v-slot:header>Fsre-Code-Learning</template>
-
-                        <template v-slot:lead>
-                            Learn how to code fast and effective with us.
-                        </template>
-
-                        <hr class="my-4">
-
-                        <b-button variant="primary" href="#">Do Something</b-button>
-                        <b-button variant="success" href="#">Do Something Else</b-button>
-                    </b-jumbotron>
-                </b-col>
-            </b-row>
         </b-container>
     </div>
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        data(){
+            return {
+                courses: [],
+            }
+        },
+        created(){
+            axios.get('/api/courses').then(response=>{
+                this.courses = response.data;
+            })
+        },
+        methods:{
+            random_rgba() {
+                let o = Math.round, r = Math.random, s = 255;
+                return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+            }
         }
+
     }
 </script>
