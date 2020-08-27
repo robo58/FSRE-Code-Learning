@@ -31,6 +31,10 @@
 
                     {{-- Left aligned nav items --}}
                     <b-navbar-nav>
+                        <b-nav-item href="#">Categories</b-nav-item>
+                    </b-navbar-nav>
+                    <b-navbar-nav>
+                        <b-nav-item href="/courses">Courses</b-nav-item>
                     </b-navbar-nav>
 
                     <!-- Right aligned nav items -->
