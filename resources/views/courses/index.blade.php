@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <course-index></course-index>
+    @can('create-posts')
+        <course-index></course-index>
+    @else
+        <course-students :user="{{ \Illuminate\Support\Facades\Auth::user() }}"></course-students>
+    @endcan
 @endsection

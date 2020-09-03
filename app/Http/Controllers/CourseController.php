@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\CoursePart;
+use App\CourseProgress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -68,7 +70,12 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return view('courses.show')->withCourse($course);
+        $br = CourseProgress::where('course_id',$course->id)->where('user_id',Auth::id())->count();
+        if($br > 0){
+            return view('courses.show')->withCourse($course);
+        }else{
+            return view('courses.enroll')->withCourse($course);
+        }
     }
 
     /**
