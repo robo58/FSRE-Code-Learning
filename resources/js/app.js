@@ -11,6 +11,7 @@ require('./bootstrap');
 import { BootstrapVue,BootstrapVueIcons } from 'bootstrap-vue';
 window.Vue = vue;
 import VueMce from 'vue-mce';
+import axios from "axios";
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -37,7 +38,10 @@ Vue.use(BootstrapVueIcons);
 Vue.use(VueMce);
 const app = new Vue({
     el: '#app',
-    data: {
-
-    }
+    data: {},
+    methods: {
+    startCourse(id,user_id) {
+        axios.post('/api/startCourse', {course_id: id, user_id: user_id});
+    },
+}
 });

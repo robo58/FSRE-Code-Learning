@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #e9ecef">
     <div id="app">
         <div>
             <b-navbar toggleable="lg" type="dark" variant="info">
