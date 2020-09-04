@@ -8,6 +8,21 @@ use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'only'=>[
+                'index','show','create'
+            ]
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *

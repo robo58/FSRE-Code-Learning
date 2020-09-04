@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class CourseProgressController extends Controller
 {
 
+
     public function indexJson($id)
     {
         return CourseProgress::where('user_id', $id)->get()->toJson();

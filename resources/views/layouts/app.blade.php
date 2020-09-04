@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body style="background-color: #e9ecef">
+<body>
     <div id="app">
         <div>
             <b-navbar toggleable="lg" type="dark" variant="info">
@@ -31,7 +31,7 @@
 
                     {{-- Left aligned nav items --}}
                     <b-navbar-nav>
-                        <b-nav-item href="#">Categories</b-nav-item>
+                        <b-nav-item href="/categories">Categories</b-nav-item>
                     </b-navbar-nav>
                     <b-navbar-nav>
                         <b-nav-item href="/courses">Courses</b-nav-item>

@@ -8,11 +8,20 @@
         <b-col>
             <b-button variant="info" class="text-white" @click="showSidebar = !showSidebar"><b-icon-arrow-bar-left v-if="showSidebar" /><b-icon-arrow-bar-right v-else /></b-button>
             <h1 class="text-center">{{ course.title }}</h1>
+
+            <b-progress height="25px" :value="progress" :max="max" show-progress class="mb-3"></b-progress>
+
             <div v-for="part in parts" :key="part.id" v-if="part.id === selected">
                 <b-jumbotron>
                     <template v-slot:header>{{ part.title }}</template>
                     <hr class="my-4" />
                     <div class="px-3" v-html="part.body" />
+
+                    <hr class="my-4" />
+                    <h4 class="text-center">Exercises</h4>
+                    <div>
+                        <exercise-show :part_id="part.id" />
+                    </div>
 
                     <hr class="my-4" />
                     <div class="d-flex">
@@ -28,14 +37,18 @@
 
 <script>
     import axios from 'axios';
+    import ExerciseShow from "./helpers/ExerciseShow";
     export default {
         name: "CourseShow",
-        props: ['course'],
+        components: {ExerciseShow},
+        props: ['course','user'],
         data() {
             return {
                 showSidebar: true,
                 selected: {},
-                parts: []
+                parts: [],
+                progress: 0,
+                max: 100
             }
         },
 
@@ -47,6 +60,10 @@
                     this.selected = this.parts[0].id;
                 }
             });
+            axios.get('/api/courses/'+this.course.id+'/getProgress/'+this.user.id)
+            .then(response=>{
+                this.progress = response.data;
+            })
         },
 
         methods:{

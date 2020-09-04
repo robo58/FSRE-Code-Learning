@@ -1,11 +1,15 @@
 <template>
     <b-row no-gutters>
+
+        <!-- Sidebar -->
         <b-col sm="0" class="border-right" v-show="showSidebar">
             <b-list-group class="text-center">
                 <b-list-group-item v-for="part in parts" :key="part.id" :href="'#'+part.id" :active="part.id === selected" @click.prevent="selectPart(part.id)" v-text="part.title"></b-list-group-item>
                 <b-list-group-item href="#" class="bg-secondary text-white" v-b-modal.modal-create-part>Create new part</b-list-group-item>
             </b-list-group>
         </b-col>
+
+        <!-- Content -->
         <b-col>
             <b-button variant="info" class="text-white" @click="showSidebar = !showSidebar"><b-icon-arrow-bar-left v-if="showSidebar" /><b-icon-arrow-bar-right v-else /></b-button>
             <h1 class="text-center">{{ course.title }}&nbsp&nbsp <b-button @click="setEditTitle(course.title)" v-b-modal.modal-edit-mainTitle><b-icon-pencil /></b-button></h1>
@@ -34,9 +38,14 @@
                         <course-part-edit-video v-if="part.lessonType === 'video' || part.video_url != null" />
                     </b-col>
                 </b-row>
+                <h4 class="text-center">Exercises</h4>
+                <exercise-input v-for="exercise in part.exercises" :key="exercise.question" :part_id="part.id" :q="exercise.question" :a="exercise.answer" class="my-4 py-2" />
+                <b-button variant="primary" @click="addExercise(part)">Add exercise</b-button>
+
             </div>
         </b-col>
 
+        <!--    Modals    -->
         <b-modal id="modal-create-part" title="New Part">
             <b-row>
                 <b-col md="3">
@@ -68,7 +77,7 @@
         <b-modal id="modal-edit-mainTitle" title="Edit title">
             <b-row>
                 <b-col md="3">
-                    <label>Part title:</label>
+                    <label>Course title:</label>
                 </b-col>
                 <b-col md="9">
                     <b-input v-model="editTitle"></b-input>
@@ -86,9 +95,10 @@
     import axios from 'axios';
     import CoursePartEditText from "./helpers/CoursePartEditText";
     import CoursePartEditVideo from "./helpers/CoursePartEditVideo";
+    import ExerciseInput from "./helpers/ExerciseInput";
     export default {
         name: "CourseEdit",
-        components: {CoursePartEditVideo, CoursePartEditText},
+        components: {ExerciseInput, CoursePartEditVideo, CoursePartEditText},
         props: ['course'],
         data() {
             return {
@@ -106,11 +116,15 @@
 
         created(){
             axios.get('/api/courses/'+this.course.id+'/getParts').then(response => {
-                console.log(response.data)
                 this.parts = response.data;
                 if(this.parts.length > 0)
                 {
                     this.selected = this.parts[0].id;
+                    this.parts.forEach(function(part){
+                        axios.get('/api/exercises/'+ part.id).then(response => {
+                            part.exercises = response.data;
+                        });
+                    });
                 }
             });
             },
@@ -178,6 +192,10 @@
                         this.parts.filter(x=>x.id===this.selected)[0] = response.data;
                     })
                 }
+            },
+
+            addExercise(part){
+                part.exercises.push({id:-1, question: '',answer: '', course_part_id: part.id});
             }
 
         }
