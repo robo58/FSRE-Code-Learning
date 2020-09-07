@@ -21,9 +21,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/categories', 'CategoryController@indexJson');
 Route::get('/courses', 'CourseController@indexJson');
 Route::get('/courses/{course}/getProgress/{user}', 'CourseController@getProgress');
-Route::post('/startCourse', 'CourseProgressController@store');
 Route::get('/courses/{course}/getParts', 'CourseController@partsJson');
 Route::get('/startedCourses/{id}', 'CourseProgressController@indexJson');
 Route::get('/exercises/{coursePart}', 'ExerciseController@indexJson');
+Route::get('/getCompletedExercises/{user}', 'CourseProgressController@getExercises');
+
+Route::post('/startCourse', 'CourseProgressController@store');
 Route::post('/exercises', 'ExerciseController@store');
 
+Route::patch('/updateProgress/{user}', 'CourseProgressController@updateProgress');
+
+Route::delete('/exercises/{exercise}','ExerciseController@destroy');

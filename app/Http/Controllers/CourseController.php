@@ -73,7 +73,7 @@ class CourseController extends Controller
         $course = new Course();
         $course->title = $request->title;
         $course->category_id = $request->category_id;
-        $course->author_id = 1;
+        $course->author_id = $request->user_id;
         $course->save();
 
         return response($course, 200);

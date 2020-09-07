@@ -39,7 +39,14 @@
                     </b-col>
                 </b-row>
                 <h4 class="text-center">Exercises</h4>
-                <exercise-input v-for="exercise in part.exercises" :key="exercise.question" :part_id="part.id" :q="exercise.question" :a="exercise.answer" class="my-4 py-2" />
+                <exercise-input v-for="exercise in exercises[parts.indexOf(part)]"
+                                :key="exercise.id"
+                                :part_id="part.id"
+                                :q="exercise.question"
+                                :a="exercise.answer"
+                                class="my-4 py-2"
+                                @onDelete="deleteExercise(exercise.id,parts.indexOf(part))"
+                />
                 <b-button variant="primary" @click="addExercise(part)">Add exercise</b-button>
 
             </div>
@@ -107,6 +114,7 @@
                 selected: -1,
                 newTitle: '',
                 editTitle: '',
+                exercises: [],
                 options: [
                     { text: 'Video lesson', value: 'video' },
                     { text: 'Text lesson', value: 'text' }
@@ -119,12 +127,12 @@
                 this.parts = response.data;
                 if(this.parts.length > 0)
                 {
-                    this.selected = this.parts[0].id;
-                    this.parts.forEach(function(part){
-                        axios.get('/api/exercises/'+ part.id).then(response => {
-                            part.exercises = response.data;
+                    for(let i = 0;i<this.parts.length;i++){
+                        axios.get('/api/exercises/'+ this.parts[i].id).then(response => {
+                                this.exercises.push(response.data);
                         });
-                    });
+                    }
+                    this.selected = this.parts[0].id;
                 }
             });
             },
@@ -195,7 +203,28 @@
             },
 
             addExercise(part){
-                part.exercises.push({id:-1, question: '',answer: '', course_part_id: part.id});
+                this.exercises[this.parts.indexOf(part)].push({ question: '',answer: '',course_part_id: part.id });
+            },
+            deleteExercise(id,index){
+                this.$bvModal.msgBoxConfirm('Are you sure you want to delete this exercise.', {
+                    title: 'Please Confirm',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'danger',
+                    okTitle: 'YES',
+                    cancelTitle: 'NO',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: false
+                })
+                    .then(value => {
+                        if(value) {
+                            axios.delete('/api/exercises/'+id)
+                                .then(response => {
+                                    this.$delete(this.exercises[index], this.exercises[index].findIndex(x => x.id === id));
+                                });
+                        }
+                    })
             }
 
         }

@@ -7,7 +7,7 @@
             <label>Enter answer!</label>
             <b-input v-model="answer"></b-input>
             <b-button variant="success" @click="saveExercise">Save</b-button>
-            <b-button variant="danger"><b-icon-trash-fill /></b-button>
+            <b-button variant="danger" @click="$emit('onDelete')"><b-icon-trash-fill /></b-button>
         </b-col>
         <b-col md="3"></b-col>
     </b-row>
@@ -34,7 +34,7 @@
                 .then(response=>{
 
                 });
-            }
+            },
         }
     }
 </script>

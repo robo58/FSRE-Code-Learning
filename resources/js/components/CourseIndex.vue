@@ -97,7 +97,7 @@
             },
 
             addCourse(){
-                axios.post('/courses',{ title: this.newCourse.title, category_id: this.newCourse.category })
+                axios.post('/courses',{ title: this.newCourse.title, category_id: this.newCourse.category, user_id:this.user.id })
                 .then(response => {
                     this.courses.push(response.data);
                 });

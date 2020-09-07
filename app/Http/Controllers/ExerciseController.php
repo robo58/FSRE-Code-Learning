@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CoursePart;
+use App\CourseProgress;
 use App\Exercise;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -81,8 +82,16 @@ class ExerciseController extends Controller
      */
     public function update(Request $request, Exercise $exercise)
     {
-        //
+        $this->validate($request,[
+            'progress'=>'required'
+        ]);
+        $exercise->progress = $request->progress;
+        $exercise->save();
+        $exercise->users()->sync([$request->user_id],false);
+
+        return response($exercise,200);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -92,6 +101,8 @@ class ExerciseController extends Controller
      */
     public function destroy(Exercise $exercise)
     {
-        //
+        $exercise->users()->detach();
+        $exercise->delete();
+        return response(null, 204);
     }
 }
