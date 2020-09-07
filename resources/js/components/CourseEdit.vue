@@ -1,11 +1,15 @@
 <template>
     <b-row no-gutters>
+
+        <!-- Sidebar -->
         <b-col sm="0" class="border-right" v-show="showSidebar">
             <b-list-group class="text-center">
                 <b-list-group-item v-for="part in parts" :key="part.id" :href="'#'+part.id" :active="part.id === selected" @click.prevent="selectPart(part.id)" v-text="part.title"></b-list-group-item>
                 <b-list-group-item href="#" class="bg-secondary text-white" v-b-modal.modal-create-part>Create new part</b-list-group-item>
             </b-list-group>
         </b-col>
+
+        <!-- Content -->
         <b-col>
             <b-button variant="info" class="text-white" @click="showSidebar = !showSidebar"><b-icon-arrow-bar-left v-if="showSidebar" /><b-icon-arrow-bar-right v-else /></b-button>
             <h1 class="text-center">{{ course.title }}&nbsp&nbsp <b-button @click="setEditTitle(course.title)" v-b-modal.modal-edit-mainTitle><b-icon-pencil /></b-button></h1>
@@ -34,9 +38,21 @@
                         <course-part-edit-video v-if="part.lessonType === 'video' || part.video_url != null" />
                     </b-col>
                 </b-row>
+                <h4 class="text-center">Exercises</h4>
+                <exercise-input v-for="exercise in exercises[parts.indexOf(part)]"
+                                :key="exercise.id"
+                                :part_id="part.id"
+                                :q="exercise.question"
+                                :a="exercise.answer"
+                                class="my-4 py-2"
+                                @onDelete="deleteExercise(exercise.id,parts.indexOf(part))"
+                />
+                <b-button variant="primary" @click="addExercise(part)">Add exercise</b-button>
+
             </div>
         </b-col>
 
+        <!--    Modals    -->
         <b-modal id="modal-create-part" title="New Part">
             <b-row>
                 <b-col md="3">
@@ -68,7 +84,7 @@
         <b-modal id="modal-edit-mainTitle" title="Edit title">
             <b-row>
                 <b-col md="3">
-                    <label>Part title:</label>
+                    <label>Course title:</label>
                 </b-col>
                 <b-col md="9">
                     <b-input v-model="editTitle"></b-input>
@@ -86,9 +102,10 @@
     import axios from 'axios';
     import CoursePartEditText from "./helpers/CoursePartEditText";
     import CoursePartEditVideo from "./helpers/CoursePartEditVideo";
+    import ExerciseInput from "./helpers/ExerciseInput";
     export default {
         name: "CourseEdit",
-        components: {CoursePartEditVideo, CoursePartEditText},
+        components: {ExerciseInput, CoursePartEditVideo, CoursePartEditText},
         props: ['course'],
         data() {
             return {
@@ -97,6 +114,7 @@
                 selected: -1,
                 newTitle: '',
                 editTitle: '',
+                exercises: [],
                 options: [
                     { text: 'Video lesson', value: 'video' },
                     { text: 'Text lesson', value: 'text' }
@@ -106,10 +124,14 @@
 
         created(){
             axios.get('/api/courses/'+this.course.id+'/getParts').then(response => {
-                console.log(response.data)
                 this.parts = response.data;
                 if(this.parts.length > 0)
                 {
+                    for(let i = 0;i<this.parts.length;i++){
+                        axios.get('/api/exercises/'+ this.parts[i].id).then(response => {
+                                this.exercises.push(response.data);
+                        });
+                    }
                     this.selected = this.parts[0].id;
                 }
             });
@@ -178,6 +200,31 @@
                         this.parts.filter(x=>x.id===this.selected)[0] = response.data;
                     })
                 }
+            },
+
+            addExercise(part){
+                this.exercises[this.parts.indexOf(part)].push({ question: '',answer: '',course_part_id: part.id });
+            },
+            deleteExercise(id,index){
+                this.$bvModal.msgBoxConfirm('Are you sure you want to delete this exercise.', {
+                    title: 'Please Confirm',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'danger',
+                    okTitle: 'YES',
+                    cancelTitle: 'NO',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: false
+                })
+                    .then(value => {
+                        if(value) {
+                            axios.delete('/api/exercises/'+id)
+                                .then(response => {
+                                    this.$delete(this.exercises[index], this.exercises[index].findIndex(x => x.id === id));
+                                });
+                        }
+                    })
             }
 
         }

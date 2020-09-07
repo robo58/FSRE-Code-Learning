@@ -30,6 +30,9 @@
                         <h5 class="mb-1">{{course.title}}</h5>
                         <small>{{getCategory(course.category_id)}}</small>,
                         <small>{{course.created_at}}</small>
+                        <small v-if="checkStart(course.id)">
+                            Started, Progress: {{ started.filter(x=>x.course_id === course.id)[0].progress }}%
+                        </small>
                     </b-list-group-item>
                 </b-list-group>
             </b-col>
@@ -58,11 +61,13 @@
     import axios from 'axios';
     export default {
         name: "CourseIndex",
+        props: ['user'],
         data() {
             return {
                 courses: [],
                 categories: [],
                 selected: {},
+                started: [],
                 newCourse: {
                     title: null,
                     category: null
@@ -77,6 +82,9 @@
             axios.get('/api/categories').then(response => {
                 this.categories = response.data;
             });
+            axios.get('/api/startedCourses/'+this.user.id).then(response => {
+                this.started = response.data;
+            });
         },
 
         methods:{
@@ -89,7 +97,7 @@
             },
 
             addCourse(){
-                axios.post('/courses',{ title: this.newCourse.title, category_id: this.newCourse.category })
+                axios.post('/courses',{ title: this.newCourse.title, category_id: this.newCourse.category, user_id:this.user.id })
                 .then(response => {
                     this.courses.push(response.data);
                 });
@@ -116,6 +124,10 @@
                         }
                     })
             },
+
+            checkStart(id){
+                return this.started.filter(x=>x.course_id === id).length > 0;
+            }
 
         }
     }
