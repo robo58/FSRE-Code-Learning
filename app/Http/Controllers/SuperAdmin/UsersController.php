@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Course;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
 use Gate;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Image;
 use Illuminate\Http\Request;
@@ -104,7 +105,9 @@ class UsersController extends Controller
     }
 
     public function profile(){
-        return view('profile', array('user' => Auth::user()));
+        $courses = Course::where('author_id',Auth::id())->with('category:id,name')->get();
+        $eCourses=Auth::user()->enrolledCourses;
+        return view('profile', array('user' => Auth::user(),'courses'=>$courses,'enrolledCourses'=>$eCourses));
     }
 
     public function update_profile(Request $request){

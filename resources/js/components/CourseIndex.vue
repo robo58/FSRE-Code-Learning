@@ -28,6 +28,7 @@
                 <b-list-group class="text-center">
                     <b-list-group-item v-for="course in courses" :key="course.id" href="#" v-b-modal.modal-item @click="selected = course.id">
                         <h5 class="mb-1">{{course.title}}</h5>
+                        <small>by {{course.author.name}},</small>
                         <small>{{getCategory(course.category_id)}}</small>,
                         <small>{{course.created_at}}</small>
                         <small v-if="checkStart(course.id)">

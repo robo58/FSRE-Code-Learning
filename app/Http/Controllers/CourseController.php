@@ -39,7 +39,7 @@ class CourseController extends Controller
 
     public function indexJson()
     {
-        return Course::all()->toJson();
+        return Course::with('author:id,name')->get()->toJson();
     }
 
 

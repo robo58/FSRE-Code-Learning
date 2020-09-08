@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -63,7 +64,12 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('categories.show')->withCategory($category);
+    }
+
+    public function getCourses(Category $category)
+    {
+        return Course::where('category_id',$category->id)->with('author:id,name')->get()->toJson();
     }
 
     /**
