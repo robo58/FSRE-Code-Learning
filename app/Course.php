@@ -22,4 +22,9 @@ class Course extends Model
     public function courseParts(){
         return $this->hasMany(CoursePart::class);
     }
+
+    public function enrolledUsers()
+    {
+        return $this->belongsToMany(User::class, 'course_progress', 'course_id', 'user_id')->withTimeStamps();
+    }
 }

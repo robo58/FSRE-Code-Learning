@@ -11,7 +11,8 @@
         <b-table responsive="true" hover :items="categories" :fields="fields" primary-key="id">
             <template v-slot:cell(buttons)="data">
                 <b-button-group>
-                    <b-button variant="info" v-b-modal.modal-edit @click="setEdit(data.item)"><b-icon-pencil></b-icon-pencil></b-button>
+                    <b-button variant="primary" :href="'/categories/'+data.item.id"><b-icon-newspaper></b-icon-newspaper></b-button>
+                    <b-button variant="secondary" v-b-modal.modal-edit @click="setEdit(data.item)"><b-icon-pencil></b-icon-pencil></b-button>
                     <b-button variant="danger" @click="deleteCategory(data.item)"><b-icon-trash-fill></b-icon-trash-fill></b-button>
                 </b-button-group>
             </template>

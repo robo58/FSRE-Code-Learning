@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="row py-4">
             <div class="col-md-10 col-md-offset-1">
                 <img src="/uploads/avatars/{{ $user->avatar }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
                 <h2>{{$user->name}} 's Profile</h2>
@@ -44,6 +44,30 @@
 
                 </form>
                 <a href="{{route('password-change')}}"><button type="button" class="btn btn-warning">Change password</button></a>
+
+                @can('create-posts')
+                    @if(!empty($courses))
+                <h2 class="text-center">My Courses</h2>
+                <b-row class="py-4">
+                    <b-col>
+                        <list-courses :courses="{{ $courses }}" :user="{{ \Illuminate\Support\Facades\Auth::user() }}"></list-courses>
+                    </b-col>
+                </b-row>
+                    @endif
+                    <h2 class="text-center">Enrolled Courses</h2>
+                    <b-row class="py-4">
+                        <b-col>
+                            <list-courses :courses="{{ $enrolledCourses }}" :user="{{ \Illuminate\Support\Facades\Auth::user() }}"></list-courses>
+                        </b-col>
+                    </b-row>
+                @else
+                    <h2 class="text-center">Enrolled Courses</h2>
+                    <b-row class="py-4">
+                        <b-col>
+                            <list-courses :courses="{{ $enrolledCourses }}" :user="{{ \Illuminate\Support\Facades\Auth::user() }}"></list-courses>
+                        </b-col>
+                    </b-row>
+                @endcan
             </div>
         </div>
     </div>
