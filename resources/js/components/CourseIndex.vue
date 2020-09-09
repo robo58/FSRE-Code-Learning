@@ -101,6 +101,7 @@
                 axios.post('/courses',{ title: this.newCourse.title, category_id: this.newCourse.category, user_id:this.user.id })
                 .then(response => {
                     this.courses.push(response.data);
+                    this.courses[this.courses.length-1].author = {id: this.user.id, name: this.user.name};
                 });
             },
 

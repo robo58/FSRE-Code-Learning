@@ -44,3 +44,7 @@ Route::post('/files', 'SuperAdmin\DocumentsController@store')->name('files-uploa
 Route::get('/files/all', 'SuperAdmin\DocumentsController@index')->name('files-show-all');
 Route::get('/files/{id}', 'SuperAdmin\DocumentsController@show')->name('file-show');
 Route::get('/files/download/{file}', 'SuperAdmin\DocumentsController@download');
+
+Route::get('/inbox',function (){
+   return view('inbox');
+})->name('inbox');

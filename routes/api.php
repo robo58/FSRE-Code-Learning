@@ -26,9 +26,12 @@ Route::get('/courses/{course}/getParts', 'CourseController@partsJson');
 Route::get('/startedCourses/{id}', 'CourseProgressController@indexJson');
 Route::get('/exercises/{coursePart}', 'ExerciseController@indexJson');
 Route::get('/getCompletedExercises/{user}', 'CourseProgressController@getExercises');
+Route::get('/getMessages/{user}/{cUser}','MessageController@getMessages');
+Route::get('/getUsers','MessageController@getUsers');
 
 Route::post('/startCourse', 'CourseProgressController@store');
 Route::post('/exercises', 'ExerciseController@store');
+Route::post('/sendMessage','MessageController@sendMessage');
 
 Route::patch('/updateProgress/{user}', 'CourseProgressController@updateProgress');
 
