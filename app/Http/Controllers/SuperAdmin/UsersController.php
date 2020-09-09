@@ -30,6 +30,7 @@ class UsersController extends Controller
         return view('superadmin.users.index')->with('users', $users);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
