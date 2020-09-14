@@ -1,9 +1,11 @@
 <template>
     <div class="py-3">
-        <b-row class="py-4">
+        <b-row class="py-4 h-25">
+
+            <!--  Users  -->
             <b-col md="4">
                 <h2 class="text-center">User list</h2>
-                <b-list-group class="text-center">
+                <b-list-group class="text-center" v-if="users.length>0">
                     <b-list-group-item
                         v-for="user in users"
                         :key="user.id"
@@ -14,10 +16,14 @@
                         class="py-4"
                     ></b-list-group-item>
                 </b-list-group>
+                <h3 v-else><em>No available users.</em></h3>
             </b-col>
             <b-col md="1"></b-col>
-            <b-col md="6">
+
+            <!--  Chat  -->
+            <b-col md="6" style="max-height: 400px; overflow-y: scroll;">
                 <h2 class="text-center">Chat</h2>
+                <h3 v-if="messages.length===0"><em>No messages.</em></h3>
                 <div
                     v-for="message in messages"
                     :key="message.id"
@@ -63,7 +69,10 @@
         created() {
             axios.get('/api/getUsers').then(response=>{
                 this.users=response.data;
-            })
+            });
+            Echo.private('chat.'+this.user.id).listen('MessageSent', (e) => {
+                        this.messages.push(e.message);
+                });
         },
 
         methods:{

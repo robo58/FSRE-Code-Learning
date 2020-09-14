@@ -72,6 +72,7 @@ class CategoryController extends Controller
         return Course::where('category_id',$category->id)->with('author:id,name')->get()->toJson();
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *

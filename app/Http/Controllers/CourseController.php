@@ -58,6 +58,11 @@ class CourseController extends Controller
         //
     }
 
+    public function search(Request $request)
+    {
+        return Course::where('title','LIKE',"%{$request->searchString}%")->with('category:id,name')->get()->toJson();
+    }
+
     /**
      * Store a newly created resource in storage.
      *

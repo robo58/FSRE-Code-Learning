@@ -49,6 +49,7 @@
                             </b-nav-item>
                             @endif
                         @else
+                            <search-bar></search-bar>
                             <b-nav-item-dropdown right>
                                 <!-- Using 'button-content' slot -->
                                 <template v-slot:button-content>

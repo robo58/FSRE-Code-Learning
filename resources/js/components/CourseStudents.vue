@@ -7,18 +7,24 @@
 
             <b-col sm="6">
                 <label><h5>Filter by Category:</h5></label>
-                <b-select v-model="filter" :options="categories" text-field="name" value-field="id">
+                <b-select v-model="filter.category" :options="categories" text-field="name" value-field="id">
                     <template v-slot:first>
                         <b-form-select-option value="any">Any</b-form-select-option>
                     </template>
                 </b-select>
             </b-col>
 
+            <b-col sm="6">
+                <label><h5>Filter by search:</h5></label>
+                <b-input v-model="filter.title"></b-input>
+            </b-col>
+
         </b-row>
         <b-row class="justify-content-center py-4">
             <b-col sm="12">
                 <b-list-group class="text-center">
-                    <b-list-group-item v-for="course in courses" v-show="filter === 'any' || course.category_id === filter"
+                    <b-list-group-item v-for="course in courses" v-show="(filter.title === '' || course.title.toLowerCase().includes(filter.title.toLowerCase()))
+                                       && (filter.category === 'any' || course.category_id === filter.category)"
                                        :key="course.id" :href="checkStart(course.id) ? '/courses/'+selected.id : '#'"
                                        v-b-modal="checkStart(course.id) ? '' : 'modal-item'"
                                        @click="selected = course">
@@ -61,7 +67,10 @@
                 categories: [],
                 selected: {},
                 started: [],
-                filter: 'any'
+                filter: {
+                    category:'any',
+                    title: ''
+                }
             }
         },
 

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <category-index></category-index>
+    @can('create-posts')
+        <category-index></category-index>
+    @else
+        <category-students></category-students>
+    @endcan
 @endsection
