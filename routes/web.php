@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('categories', 'CategoryController');
 Route::resource('courses', 'CourseController');
 Route::resource('courseParts', 'CoursePartController');
+
+Route::post('/canCreate',function (){
+    return response([!Gate::denies('create-posts')],200);
+});
 
 Route::get('/superadmin', function(){
     return 'you are superadmin';

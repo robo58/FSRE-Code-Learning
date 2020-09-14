@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Message;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
@@ -12,7 +14,7 @@ class MessageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -33,14 +35,15 @@ class MessageController extends Controller
 
     public function getUsers()
     {
-        return User::all();
+        return User::where('id','!=',auth()->id())->get();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function sendMessage(Request $request)
     {
@@ -55,13 +58,15 @@ class MessageController extends Controller
         $message->text=$request->text;
         $message->save();
 
+        broadcast(new MessageSent($message));
+
         return response($message,200);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -71,8 +76,8 @@ class MessageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -83,7 +88,7 @@ class MessageController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Message $message)
     {
@@ -94,7 +99,7 @@ class MessageController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Message $message)
     {
@@ -104,9 +109,9 @@ class MessageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Message $message)
     {
@@ -117,7 +122,7 @@ class MessageController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Message $message)
     {
