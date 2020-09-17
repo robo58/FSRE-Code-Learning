@@ -38,7 +38,7 @@
 
             getCourse(){
                 let course = this.courses.filter(x=>x.title.toLowerCase().includes(this.searchString.toLowerCase()))[0];
-                window.location.href= window.location.href.substr(0, window.location.href.length - 1) + '/courses/' + course.id;
+                window.location.href= window.location.origin + '/courses/' + course.id;
             }
         }
 

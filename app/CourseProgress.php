@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class CourseProgress extends Model
 {
-    public function users(){
-        return $this->belongsToMany('App\User');
+    protected $casts = [
+        'created_at' => 'datetime:jS F, Y, H:i:s',
+        'updated_at' => 'datetime:jS F, Y, H:i:s'
+    ];
+    public function user(){
+        return $this->belongsTo('App\User');
     }
-    public function courses(){
-        return $this->belongsToMany('App\Course');
+    public function course(){
+        return $this->belongsTo('App\Course');
     }
 }

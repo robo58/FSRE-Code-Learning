@@ -105,10 +105,22 @@ class UsersController extends Controller
         return redirect()->route('superadmin.users.index');
     }
 
-    public function profile(){
-        $courses = Course::where('author_id',Auth::id())->with('category:id,name')->get();
-        $eCourses=Auth::user()->enrolledCourses;
-        return view('profile', array('user' => Auth::user(),'courses'=>$courses,'enrolledCourses'=>$eCourses));
+    public function profile(User $user){
+        $courses = Course::where('author_id',$user->id)->with('category:id,name')->get();
+        $eCourses=$user->enrolledCourses;
+        return view('profile', array('user' => $user,'courses'=>$courses,'enrolledCourses'=>$eCourses));
+    }
+
+    public function teachers(){
+        $authorizedRoles=['admin','superadmin'];
+        $teachers = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
+            return $query->whereIn('name', $authorizedRoles);
+        })->get();
+        return view('teachers')->withTeachers($teachers);
+    }
+
+    public function courses(User $user){
+        return Course::where('author_id',$user->id)->get()->toJson();
     }
 
     public function update_profile(Request $request){
