@@ -38,7 +38,9 @@ Vue.use(BootstrapVueIcons);
 Vue.use(VueMce);
 const app = new Vue({
     el: '#app',
-    data: {},
+    data: {
+        setEdit: false
+    },
     methods: {
     startCourse(id,user_id) {
         axios.post('/api/startCourse', {course_id: id, user_id: user_id});

@@ -19,11 +19,6 @@ class CoursePartController extends Controller
         //
     }
 
-    public function indexJson($course_id)
-    {
-        dd($course_id);
-        return CoursePart::all()->toJson();
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -91,6 +86,17 @@ class CoursePartController extends Controller
         $coursePart->save();
 
         return response($coursePart, 200);
+    }
+
+    public function upload(Request $request)
+    {
+        $this->validate($request,[
+            'file'=>'required|'
+        ]);
+        $file=$request->file;
+        $filename=time().'.'.$file->getClientOriginalExtension();
+        $file->move('uploads/videos/', $filename);
+        return response('success',200);
     }
 
     /**

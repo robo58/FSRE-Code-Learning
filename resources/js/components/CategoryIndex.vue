@@ -8,8 +8,8 @@
                 <b-button v-b-modal.modal-create>Create new category</b-button>
             </b-col>
         </b-row>
-        <b-row no-gutters class="py-3">
-            <b-col md="2" class="d-flex justify-content-start">
+        <b-row class="py-3">
+            <b-col sm="2" class="d-flex justify-content-start">
                 <label ><h6>Items per page:</h6></label>
                 <b-select v-model="perPage">
                     <b-form-select-option :value="5">5</b-form-select-option>
@@ -19,7 +19,6 @@
                     <b-form-select-option :value="50">50</b-form-select-option>
                 </b-select>
             </b-col>
-            <b-col sm="1"></b-col>
             <b-col class="d-flex justify-content-center">
                 <label>Search categories:</label>
                 <b-input type="search" v-model="filter"></b-input>
@@ -36,12 +35,14 @@
         <b-table
             id="categories-table"
             responsive="true"
+            class="overflow-auto"
             hover
             :items="categories"
             :filter="filter"
             :per-page="perPage"
             :current-page="currentPage"
             :fields="fields"
+            :filterIncludedFields="filterOn"
             primary-key="id"
         >
             <template v-slot:cell(buttons)="data">
@@ -68,7 +69,6 @@
                 <b-button variant="primary" @click="$bvModal.hide('modal-create'), createCategory(newCategoryName)">Create</b-button>
             </template>
         </b-modal>
-
         <b-modal id="modal-edit" title="New name">
             <b-row>
                 <b-col md="3">
@@ -98,6 +98,7 @@
                 currentPage: 1,
                 isBusy: true,
                 filter: null,
+                filterOn: ['name'],
                 newCategoryName: '',
                 edit: {
                     id: -1,

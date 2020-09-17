@@ -36,6 +36,9 @@
                     <b-navbar-nav>
                         <b-nav-item href="/courses">Courses</b-nav-item>
                     </b-navbar-nav>
+                    <b-navbar-nav>
+                        <b-nav-item href="/teachers">Teachers</b-nav-item>
+                    </b-navbar-nav>
 
                     <!-- Right aligned nav items -->
                     <b-navbar-nav class="ml-auto">
@@ -58,7 +61,7 @@
                                 @can('manage-users')
                                 <b-dropdown-item href="{{ route('superadmin.users.index') }}"><b-icon-people-fill></b-icon-people-fill> User Management</b-dropdown-item>
                                 @endcan
-                                <b-dropdown-item href="{{ route('profile') }}"><b-icon-person-fill></b-icon-person-fill> Profile</b-dropdown-item>
+                                <b-dropdown-item href="{{ route('profile',\Illuminate\Support\Facades\Auth::user()) }}"><b-icon-person-fill></b-icon-person-fill> Profile</b-dropdown-item>
                                 <b-dropdown-item href="{{ route('inbox') }}"><b-icon-inbox-fill></b-icon-inbox-fill> Inbox</b-dropdown-item>
                                 <b-dropdown-item href="#" @click.prevent="$refs.logout.submit()"><b-icon-box-arrow-right></b-icon-box-arrow-right> Logout</b-dropdown-item>
                                 <form ref="logout" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -38,8 +38,10 @@ Route::namespace('SuperAdmin')->prefix('superadmin')->name('superadmin.')->middl
     Route::resource('/users', 'UsersController', ['except' => ['show','create','store']]);
 });
 
-Route::get('/profile', 'SuperAdmin\UsersController@profile')->name('profile');
-Route::post('/profile', 'SuperAdmin\UsersController@update_profile')->name('profile');
+Route::get('/profile/{user}', 'SuperAdmin\UsersController@profile')->name('profile');
+Route::post('/profile/{user}', 'SuperAdmin\UsersController@update_profile')->name('profile');
+Route::get('/teachers','SuperAdmin\UsersController@teachers')->name('teachers');
+Route::get('/getCourses/{user}','SuperAdmin\UsersController@courses');
 
 Route::get('/password-change', 'SuperAdmin\UsersController@password_change_view')->name('password-change');
 Route::post('/password-change', 'SuperAdmin\UsersController@password_update')->name('password-update');
