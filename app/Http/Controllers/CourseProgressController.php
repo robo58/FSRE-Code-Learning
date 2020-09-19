@@ -17,7 +17,7 @@ class CourseProgressController extends Controller
 
     public function indexJson($id)
     {
-        return CourseProgress::where('user_id', $id)->get()->toJson();
+        return CourseProgress::where('user_id', $id)->with('course:id,title')->get()->toJson();
     }
 
     /**

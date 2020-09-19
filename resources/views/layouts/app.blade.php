@@ -23,7 +23,11 @@
     <div id="app">
         <div>
             <b-navbar toggleable="lg" type="dark" variant="info">
-                <b-navbar-brand href="{{ url('/') }}">Fsre-Code-Learning</b-navbar-brand>
+                @guest
+                    <b-navbar-brand href="{{ url('/') }}">Fsre-Code-Learning</b-navbar-brand>
+                @else
+                    <b-navbar-brand href="{{ url('/home') }}">Fsre-Code-Learning</b-navbar-brand>
+                @endguest
 
                 <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

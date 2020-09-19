@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,8 @@ Route::get('/getCourses/{user}','SuperAdmin\UsersController@courses');
 Route::get('/password-change', 'SuperAdmin\UsersController@password_change_view')->name('password-change');
 Route::post('/password-change', 'SuperAdmin\UsersController@password_update')->name('password-update');
 
+Route::patch('/courseParts/{coursePart}/video', 'CoursePartController@updateVideo')->name('upload-video');
+
 Route::get('/files/create', 'SuperAdmin\DocumentsController@create')->name('files-create');
 Route::post('/files', 'SuperAdmin\DocumentsController@store')->name('files-upload');
 Route::get('/files/all', 'SuperAdmin\DocumentsController@index')->name('files-show-all');
@@ -53,5 +56,9 @@ Route::get('/files/{id}', 'SuperAdmin\DocumentsController@show')->name('file-sho
 Route::get('/files/download/{file}', 'SuperAdmin\DocumentsController@download');
 
 Route::get('/inbox',function (){
-   return view('inbox');
+    return view('inbox');
 })->name('inbox');
+
+Route::get('/inbox/{user}',function (User $user){
+   return view('inbox')->withUser($user);
+})->name('inbox_select');

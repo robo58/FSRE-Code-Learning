@@ -2,6 +2,10 @@
 
 @section('content')
 
-    <inbox :user="{{ \Illuminate\Support\Facades\Auth::user() }}"></inbox>
+    @if($user ?? null)
+        <inbox :user="{{ \Illuminate\Support\Facades\Auth::user() }}" :select="{{ $user }}"></inbox>
+    @else
+        <inbox :user="{{ \Illuminate\Support\Facades\Auth::user() }}"></inbox>
+    @endif
 
 @endsection

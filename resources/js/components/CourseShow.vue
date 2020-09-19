@@ -15,7 +15,11 @@
                 <b-jumbotron>
                     <template v-slot:header>{{ part.title }}</template>
                     <hr class="my-4" />
-                    <div class="px-3" v-html="part.body" />
+
+                    <div class="px-3" v-html="part.body" v-if="part.body !== null && part.video_url === null" />
+                    <div v-if="part.body===null && part.video_url !== null">
+                        <show-video :part="part"></show-video>
+                    </div>
 
                     <hr class="my-4" />
                     <h4 class="text-center">Exercises</h4>
@@ -40,10 +44,12 @@
     import axios from 'axios';
     import ExerciseShow from "./helpers/ExerciseShow";
     import ExerciseCompleted from "./helpers/ExerciseCompleted";
+    import ShowVideo from "./helpers/ShowVideo";
+
 
     export default {
         name: "CourseShow",
-        components: {ExerciseShow,ExerciseCompleted},
+        components: {ExerciseShow,ExerciseCompleted,ShowVideo},
         props: ['course','user'],
         data() {
             return {
@@ -58,6 +64,9 @@
         },
 
         created(){
+            if(this.user.last_course_id !== this.course.id){
+                axios.patch('/api/changeLastCourse',{user_id: this.user.id, course_id: this.course.id});
+            }
             axios.get('/api/courses/'+this.course.id+'/getParts').then(response => {
                 this.parts = response.data;
                 if(this.parts.length > 0)

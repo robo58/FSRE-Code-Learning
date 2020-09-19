@@ -2,8 +2,9 @@
 
 @section('content')
 
-    <guest-page></guest-page>
-
-    <a href="/files/create">Dokumenti</a>
-
+    @guest
+        <guest-page></guest-page>
+    @else
+        <guest-page :user="{{ \Illuminate\Support\Facades\Auth::user() }}"></guest-page>
+    @endguest
 @endsection

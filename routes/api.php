@@ -29,8 +29,11 @@ Route::get('/startedCourses/{id}', 'CourseProgressController@indexJson');
 Route::get('/exercises/{coursePart}', 'ExerciseController@indexJson');
 Route::get('/getCompletedExercises/{user}', 'CourseProgressController@getExercises');
 Route::get('/getMessages/{user}/{cUser}','MessageController@getMessages');
-Route::get('/getUsers','MessageController@getUsers');
+Route::get('/getUnreadMessages/{user}/{contact}','MessageController@getUnreadMessages');
+Route::get('/getUsers/{user}','MessageController@getUsers');
 Route::get('/getStats/{course}','CourseController@getStats');
+Route::get('/getLastCourse/{user}','CourseController@getLastCourse');
+
 
 Route::post('/startCourse', 'CourseProgressController@store');
 Route::post('/exercises', 'ExerciseController@store');
@@ -41,5 +44,6 @@ Route::post('/uploadVideo','CoursePartController@upload');
 
 
 Route::patch('/updateProgress/{user}', 'CourseProgressController@updateProgress');
+Route::patch('/changeLastCourse','CourseController@changeLastCourse');
 
 Route::delete('/exercises/{exercise}','ExerciseController@destroy');

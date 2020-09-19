@@ -37,7 +37,7 @@
                                                @submitText="setBody" />
                         <course-part-edit-video v-if="part.lessonType === 'video' || part.video_url != null"
                                                 :video_desc="part.video_desc"
-                                                @upload="onUpload"
+                                                @uploadVideo="uploadVideo"
                         />
                     </b-col>
                 </b-row>
@@ -155,6 +155,9 @@
                 axios.post('/courseParts', { title: newTitle, course_id: this.course.id })
                 .then(response => {
                     this.parts.push(response.data);
+                    this.parts[this.parts.length-1].body=null;
+                    this.parts[this.parts.length-1].video_desc=null;
+                    this.parts[this.parts.length-1].video_url=null;
                     this.exercises.push([]);
                     this.newTitle = '';
                 })
@@ -217,6 +220,15 @@
                 }
             },
 
+            uploadVideo(data){
+                data.append('coursePart',this.parts.filter(x=>x.id===this.selected)[0]);
+                data.append('_method','PATCH');
+                axios.post('/courseParts/'+this.selected+'/video', data,{ headers: {'Content-Type': 'multipart/form-data'}})
+                    .then(response=>{
+                        this.parts.filter(x=>x.id===this.selected)[0] = response.data;
+                    });
+            },
+
             addExercise(part){
                 this.exercises[this.parts.indexOf(part)].push({ question: '',answer: '',course_part_id: part.id });
             },
@@ -240,13 +252,6 @@
                                 });
                         }
                     })
-            },
-
-            onUpload(data){
-                let part = this.parts.filter(x=>x.id===this.selected)[0];
-                part.video_url = data.video_url;
-                part.video_desc = data.video_desc;
-                this.editPart();
             },
 
             checkRadio(part){
