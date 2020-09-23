@@ -14,7 +14,7 @@ class AddLastCourseIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('last_course_id')->unsigned()->after('avatar');
+            $table->integer('last_course_id')->unsigned()->nullable()->after('avatar');
         });
     }
 

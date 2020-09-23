@@ -1,6 +1,6 @@
 <template>
     <b-card>
-        <img :src="'/uploads/avatars/'+user.avatar" alt="no img" style="width:15%; height:15%; float:left; border-radius:50%; margin-right:25px;">
+        <img :src="'/uploads/avatars/'+user.avatar" alt="no img" style="width:15%; float:left; border-radius:50%; margin-right:25px;">
         <h2>{{ user.name }}</h2>
         <h6>{{ user.email }}</h6>
         <h6 class="text-center" v-if="courses.length>0" >{{user.name}}'s courses</h6>
