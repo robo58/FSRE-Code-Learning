@@ -42,6 +42,8 @@ Route::namespace('SuperAdmin')->prefix('superadmin')->name('superadmin.')->middl
 Route::get('/profile/{user}', 'SuperAdmin\UsersController@profile')->name('profile');
 Route::post('/profile/{user}', 'SuperAdmin\UsersController@update_profile')->name('profile');
 Route::get('/teachers','SuperAdmin\UsersController@teachers')->name('teachers');
+Route::get('/students','SuperAdmin\UsersController@students')->name('students');
+
 Route::get('/getCourses/{user}','SuperAdmin\UsersController@courses');
 
 Route::get('/password-change', 'SuperAdmin\UsersController@password_change_view')->name('password-change');

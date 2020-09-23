@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <student-list></student-list>
+    <student-list :students="{{ $students }}" :user="{{ \Illuminate\Support\Facades\Auth::user() }}"></student-list>
 
 @endsection

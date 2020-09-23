@@ -66,7 +66,7 @@
                 <h2 class="text-center">My Courses</h2>
                 <b-row class="py-4">
                     <b-col>
-                        <my-courses :courses="{{ $courses }}" :user="{{ \Illuminate\Support\Facades\Auth::user() }}"></my-courses>
+                        <list-courses :courses="{{ $courses }}" :user="{{ \Illuminate\Support\Facades\Auth::user() }}"></list-courses>
                     </b-col>
                 </b-row>
                     @endif

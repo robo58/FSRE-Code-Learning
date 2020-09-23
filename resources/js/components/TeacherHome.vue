@@ -22,7 +22,7 @@
 
             <b-col>
                 <a href="/students" class="text-white">
-                    <b-card bg-variant="info" border-variant="info" title="Teachers" href="/teachers">
+                    <b-card bg-variant="info" border-variant="info" title="Students" href="/teachers">
                         <b-card-text>Browse Students</b-card-text>
                     </b-card>
                 </a>
@@ -37,11 +37,19 @@
             </b-col>
         </b-row>
 
+        <!--  Course stats  -->
+        <b-row class="my-3 py-4 bg-info rounded">
+            <b-col>
+                <my-courses :user="user"></my-courses>
+            </b-col>
+        </b-row>
+
     </b-container>
 </template>
 
 <script>
     import LastCourse from "./helpers/LastCourse";
+    import MyCourses from "./helpers/MyCourses";
     import MessageFeed from "./helpers/MessageFeed";
     export default{
         props:{
@@ -55,6 +63,6 @@
                 teacher: false,
             }
         },
-        components: {LastCourse,MessageFeed},
+        components: {LastCourse,MessageFeed,MyCourses},
     }
 </script>

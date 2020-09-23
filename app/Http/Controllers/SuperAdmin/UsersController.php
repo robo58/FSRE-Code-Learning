@@ -119,6 +119,14 @@ class UsersController extends Controller
         return view('teachers')->withTeachers($teachers);
     }
 
+    public function students(){
+        $authorizedRoles=['user'];
+        $students = User::whereHas('roles', static function ($query) use ($authorizedRoles) {
+            return $query->whereIn('name', $authorizedRoles);
+        })->get();
+        return view('students')->withStudents($students);
+    }
+
     public function courses(User $user){
         return Course::where('author_id',$user->id)->get()->toJson();
     }

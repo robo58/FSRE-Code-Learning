@@ -70,6 +70,12 @@ class CourseController extends Controller
         return response(['course'=>$course,'progress'=>$courseProgress],200);
     }
 
+    public function getMyCourses(User $user)
+    {
+        $courses=Course::where('author_id',$user->id)->get()->toJson();
+        return response($courses,200);
+    }
+
     public function changeLastCourse(Request $request)
     {
         $user = User::find($request->user_id);

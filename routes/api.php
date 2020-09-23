@@ -33,6 +33,7 @@ Route::get('/getUnreadMessages/{user}/{contact}','MessageController@getUnreadMes
 Route::get('/getUsers/{user}','MessageController@getUsers');
 Route::get('/getStats/{course}','CourseController@getStats');
 Route::get('/getLastCourse/{user}','CourseController@getLastCourse');
+Route::get('/{user}/getMyCourses','CourseController@getMyCourses');
 
 
 Route::post('/startCourse', 'CourseProgressController@store');
