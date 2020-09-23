@@ -3,13 +3,7 @@
         <b-row class="justify-content-center py-4">
             <h1>List of teachers.</h1>
         </b-row>
-        <b-row class="py-4 text-center">
 
-            <b-col sm="6">
-
-            </b-col>
-
-        </b-row>
         <b-row class="justify-content-center py-4" v-for="teacher in teachers" :key="teacher.id">
             <b-col sm="12">
                 <user-info :user="teacher" :logged-in-user="user"></user-info>

@@ -63,6 +63,22 @@ class CourseController extends Controller
         return CoursePart::where('course_id', $course->id)->get()->toJson();
     }
 
+    public function getLastCourse(User $user)
+    {
+        $course=Course::find($user->last_course_id);
+        $courseProgress = CourseProgress::where('course_id',$course->id)->where('user_id',$user->id)->first()->progress;
+        return response(['course'=>$course,'progress'=>$courseProgress],200);
+    }
+
+    public function changeLastCourse(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->last_course_id=$request->course_id;
+        $user->save();
+        return response('success',200);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

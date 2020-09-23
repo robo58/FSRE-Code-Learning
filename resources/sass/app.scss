@@ -33,6 +33,75 @@ html, body, main {
     padding-top: 20px;
 }
 
+.language-python {
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px 10px 10px 40px;
+    color: white;
+}
+
+.language-java {
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px 10px 10px 40px;
+    color: white;
+}
+
+.language-c {
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px 10px 10px 40px;
+    color: white;
+}
+.language-csharp {
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px 10px 10px 40px;
+    color: white;
+}
+
+.language-cpp {
+     background-color: black;
+     border-radius: 10px;
+     padding: 10px 10px 10px 40px;
+     color: white;
+ }
+
+.language-ruby {
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px 10px 10px 40px;
+    color: white;
+}
+
+.language-css {
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px 10px 10px 40px;
+    color: white;
+}
+
+.language-php {
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px 10px 10px 40px;
+    color: white;
+}
+
+.language-javascript {
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px 10px 10px 40px;
+    color: white;
+}
+
+.language-markup {
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px 10px 10px 40px;
+    color: white;
+}
+
 // BootstrapVue and its default variables
 @import '~bootstrap-vue/src/index.scss';
 

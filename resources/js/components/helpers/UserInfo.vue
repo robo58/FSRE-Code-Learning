@@ -13,7 +13,7 @@
         </b-list-group>
         <div class="py-3 d-flex justify-content-end">
             <b-button variant="primary" :href="'/profile/'+user.id"><b-icon-person></b-icon-person></b-button>
-            <b-button variant="info" href="/inbox" v-if="loggedInUser.id !== user.id"><b-icon-chat></b-icon-chat></b-button>
+            <b-button variant="info" :href="'/inbox/'+user.id" v-if="loggedInUser.id !== user.id"><b-icon-chat></b-icon-chat></b-button>
         </div>
     </b-card>
 </template>

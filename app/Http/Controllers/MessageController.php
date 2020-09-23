@@ -30,12 +30,41 @@ class MessageController extends Controller
      */
     public function getMessages(User $user,User $cUser)
     {
-        return Message::whereIn('sender_id',array($user->id,$cUser->id))->whereIn('receiver_id',array($user->id,$cUser->id))->oldest()->get();
+        Message::where('sender_id',$cUser->id)->where('receiver_id',$user->id)->update(['read'=>true]);
+        $messages = Message::whereIn('sender_id',array($user->id,$cUser->id))->whereIn('receiver_id',array($user->id,$cUser->id))->oldest()->get();
+
+        return $messages;
     }
 
-    public function getUsers()
+    public function getUnreadMessages(User $user,User $contact)
     {
-        return User::where('id','!=',auth()->id())->get();
+        $messages = Message::where('receiver_id',$user->id)
+            ->where('sender_id',$contact->id)
+            ->where('read',false)
+            ->latest()
+            ->get();
+
+        return $messages;
+    }
+
+    public function getUsers(User $user)
+    {
+        //get all users except for logged in user
+        $contacts= User::where('id','!=',$user->id)->get();
+
+        $unreadIds = Message::select(\DB::raw('sender_id, count(`sender_id`) as messages_count'))
+            ->where('receiver_id',$user->id)
+            ->where('read',false)
+            ->groupBy('sender_id')
+            ->get();
+
+        $contacts->map(function($contact) use ($unreadIds){
+            $contactUnread = $unreadIds->where('sender_id',$contact->id)->first();
+            $contact->unread = $contactUnread ? $contactUnread->messages_count : 0;
+
+            return $contact;
+        });
+        return $contacts;
     }
 
     /**

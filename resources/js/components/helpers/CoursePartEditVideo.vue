@@ -48,11 +48,9 @@
         },
 
         created() {
-            if(this.video!=null){
-                this.uploaded=true;
-            }
             if(this.video_desc!=null){
                 this.video_descr=this.video_desc;
+                this.uploaded=true;
             }
         },
 
@@ -60,10 +58,8 @@
             uploadFile(){
                 let formData = new FormData();
                 formData.append('file',this.file1);
-                axios.post('/api/uploadVideo',formData,{ headers: {'Content-Type': 'multipart/form-data'}})
-                    .then(response=>{
-                    this.$emit('upload',{video_url: this.file1.name, video_desc: this.video_descr});
-                });
+                formData.append('video_desc',this.video_descr);
+                this.$emit('uploadVideo',formData);
             }
         }
 

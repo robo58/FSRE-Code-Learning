@@ -81,23 +81,32 @@ class CoursePartController extends Controller
     {
         $coursePart->title = $request->coursePart['title'];
         $coursePart->body = $request->coursePart['body'];
-        $coursePart->video_url = $request->coursePart['video_url'];
-        $coursePart->video_desc = $request->coursePart['video_desc'];
         $coursePart->save();
 
         return response($coursePart, 200);
     }
 
-    public function upload(Request $request)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\CoursePart  $coursePart
+     * @return \Illuminate\Http\Response
+     */
+    public function updateVideo(Request $request, CoursePart $coursePart)
     {
-        $this->validate($request,[
-            'file'=>'required|'
-        ]);
-        $file=$request->file;
-        $filename=time().'.'.$file->getClientOriginalExtension();
-        $file->move('uploads/videos/', $filename);
-        return response('success',200);
+        if($request->file){
+            $file=$request->file;
+            $filename=time().'.'.$file->getClientOriginalExtension();
+            $coursePart->video_url = $filename;
+            $file->move('uploads/videos/', $filename);
+            $coursePart->video_desc = $request->video_desc;
+            $coursePart->save();
+        }
+
+        return response($coursePart, 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
