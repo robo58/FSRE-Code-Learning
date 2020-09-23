@@ -44,7 +44,7 @@
                     <b-navbar-nav class="ml-auto">
                         @guest
                             <b-nav-item href="{{ route('login') }}">
-                                Login
+                                Log
                             </b-nav-item>
                             @if (Route::has('register'))
                             <b-nav-item href="{{ route('register') }}">

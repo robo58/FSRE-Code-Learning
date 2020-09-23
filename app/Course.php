@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravelista\Comments\Commentable;
 
 class Course extends Model
 {
+    use Commentable;
+
     protected $casts = [
         'created_at' => 'datetime:jS F, Y, H:i:s',
         'updated_at' => 'datetime:jS F, Y, H:i:s'
