@@ -2,9 +2,9 @@
     <b-container class="py-3">
         <b-row class="py-4">
             <!--  Users  -->
-            <b-col md="4" style="max-height: 75%;">
+            <b-col md="4">
                 <h2 class="text-center">User list</h2>
-                <b-list-group v-if="contacts.length>0" :class="contacts.length>6 ? 'overflow-auto':''">
+                <b-list-group v-if="contacts.length>0" style="max-height: 600px; overflow-y: auto;">
                     <b-list-group-item
                         v-for="contact in sortedContacts"
                         :key="contact.id"

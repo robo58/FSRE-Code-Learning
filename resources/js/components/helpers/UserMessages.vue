@@ -1,6 +1,6 @@
 <template>
     <b-card v-if="messages.length>0" border-variant="light">
-        <img :src="'/uploads/avatars/'+contact.avatar" alt="no img" style="width:15%; height:15%; float:left; border-radius:50%;">
+        <img :src="'/uploads/avatars/'+contact.avatar" alt="no img" style="width:15%; float:left; border-radius:50%;">
         <h4 class="text-left">
             {{ contact.name }}
             <b-badge variant="info" class="text-white">{{ contact.unread }} <span class="sr-only">unread messages</span></b-badge>
