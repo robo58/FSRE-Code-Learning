@@ -1,6 +1,8 @@
 <?php
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,10 +30,15 @@ Route::get('/exercises/{coursePart}', 'ExerciseController@indexJson');
 Route::get('/getCompletedExercises/{user}', 'CourseProgressController@getExercises');
 Route::get('/getMessages/{user}/{cUser}','MessageController@getMessages');
 Route::get('/getUsers','MessageController@getUsers');
+Route::get('/getStats/{course}','CourseController@getStats');
 
 Route::post('/startCourse', 'CourseProgressController@store');
 Route::post('/exercises', 'ExerciseController@store');
 Route::post('/sendMessage','MessageController@sendMessage');
+Route::post('/searchCourses','CourseController@search');
+Route::post('/searchCategories','CategoryController@search');
+Route::post('/uploadVideo','CoursePartController@upload');
+
 
 Route::patch('/updateProgress/{user}', 'CourseProgressController@updateProgress');
 

@@ -35,7 +35,10 @@
                     <b-col sm="12">
                         <course-part-edit-text :text="part.body!==null ? part.body : ''" v-if="part.lessonType === 'text' || part.body != null"
                                                @submitText="setBody" />
-                        <course-part-edit-video v-if="part.lessonType === 'video' || part.video_url != null" />
+                        <course-part-edit-video v-if="part.lessonType === 'video' || part.video_url != null"
+                                                :video_desc="part.video_desc"
+                                                @upload="onUpload"
+                        />
                     </b-col>
                 </b-row>
                 <h4 class="text-center">Exercises</h4>
@@ -128,11 +131,20 @@
                 if(this.parts.length > 0)
                 {
                     for(let i = 0;i<this.parts.length;i++){
+
+                        if(this.parts[i].body === undefined){
+                            this.parts[i].body=null;
+                        }
+                        if(this.parts[i].video_url === undefined){
+                            this.parts[i].video_url=null;
+                        }
+
                         axios.get('/api/exercises/'+ this.parts[i].id).then(response => {
                                 this.exercises.push(response.data);
                         });
                     }
                     this.selected = this.parts[0].id;
+                    this.checkRadio(this.parts[0]);
                 }
             });
             },
@@ -143,12 +155,14 @@
                 axios.post('/courseParts', { title: newTitle, course_id: this.course.id })
                 .then(response => {
                     this.parts.push(response.data);
+                    this.exercises.push([]);
                     this.newTitle = '';
                 })
             },
 
             selectPart(id){
                 this.selected = id;
+                this.checkRadio(this.parts.filter(x=>x.id===this.selected)[0]);
             },
 
             deletePart (part) {
@@ -167,6 +181,7 @@
                         if(value) {
                             axios.delete('/courseParts/' + part.id)
                                 .then(response => {
+                                    this.$delete(this.exercises, this.parts.indexOf(part));
                                     this.$delete(this.parts, this.parts.findIndex(x => x.id === part.id))
                                 });
                         }
@@ -196,9 +211,9 @@
                         this.editTitle = '';
                     }
                     axios.patch('/courseParts/'+this.selected, { coursePart: editing })
-                    .then(response=>{
-                        this.parts.filter(x=>x.id===this.selected)[0] = response.data;
-                    })
+                        .then(response=>{
+                            this.parts.filter(x=>x.id===this.selected)[0] = response.data;
+                        });
                 }
             },
 
@@ -225,6 +240,28 @@
                                 });
                         }
                     })
+            },
+
+            onUpload(data){
+                let part = this.parts.filter(x=>x.id===this.selected)[0];
+                part.video_url = data.video_url;
+                part.video_desc = data.video_desc;
+                this.editPart();
+            },
+
+            checkRadio(part){
+                    if(part.body === null){
+                        this.options[0].disabled=false;
+                    }else{
+                        this.options[0].disabled=true;
+                        part.lessonType = 'text';
+                    }
+                    if(part.video_url === null){
+                        this.options[1].disabled=false;
+                    }else{
+                        this.options[1].disabled=true;
+                        part.lessonType = 'video';
+                    }
             }
 
         }

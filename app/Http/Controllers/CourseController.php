@@ -42,6 +42,21 @@ class CourseController extends Controller
         return Course::with('author:id,name')->get()->toJson();
     }
 
+    public function getStats(Course $course)
+    {
+        $students=CourseProgress::where('course_id',$course->id)->with('user:id,name,email')->get();
+        $parts=$course->courseParts;
+        $countP=0;
+        $countE=0;
+        foreach ($parts as $part){
+            $countP+=1;
+            foreach ($part->exercises as $exercise){
+                $countE+=1;
+            }
+        }
+        return response(['students'=>$students,'exercises'=>$countE,'parts'=>$countP],200);
+    }
+
 
     public function partsJson(Course $course)
     {
@@ -56,6 +71,11 @@ class CourseController extends Controller
     public function create()
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        return Course::where('title','LIKE',"%{$request->searchString}%")->with('category:id,name')->get()->toJson();
     }
 
     /**

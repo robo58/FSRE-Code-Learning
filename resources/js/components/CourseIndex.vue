@@ -6,27 +6,33 @@
         <b-row class="py-4 text-center">
 
             <b-col sm="6">
-                <label><h5>Category:</h5></label>
-                <b-select v-model="newCourse.category" :options="categories" text-field="name" value-field="id">
+                <label><h5>Filter by Category:</h5></label>
+                <b-select v-model="filter.category" :options="categories" text-field="name" value-field="id">
                     <template v-slot:first>
-                        <b-form-select-option :value="null" disabled>-- Please select a category --</b-form-select-option>
+                        <b-form-select-option value="any">Any</b-form-select-option>
                     </template>
                 </b-select>
             </b-col>
 
             <b-col sm="6">
-                <label><h5>Course Title:</h5></label>
-                <b-input v-model="newCourse.title"></b-input>
+                <label><h5>Filter by search:</h5></label>
+                <b-input v-model="filter.title"></b-input>
             </b-col>
             <b-col sm="12">
                 <br />
-                <b-button block variant="primary" @click="addCourse()">Add new course</b-button>
+                <b-button block variant="primary" v-b-modal.modal-create>Add new course</b-button>
             </b-col>
         </b-row>
         <b-row class="justify-content-center py-4">
             <b-col sm="12">
                 <b-list-group class="text-center">
-                    <b-list-group-item v-for="course in courses" :key="course.id" href="#" v-b-modal.modal-item @click="selected = course.id">
+                    <b-list-group-item v-for="course in courses"
+                                       :key="course.id" href="#"
+                                       v-b-modal.modal-item
+                                       @click="selected = course.id"
+                                       v-show="(filter.title === '' || course.title.toLowerCase().includes(filter.title.toLowerCase()))
+                                       && (filter.category === 'any' || course.category_id === filter.category)"
+                    >
                         <h5 class="mb-1">{{course.title}}</h5>
                         <small>by {{course.author.name}},</small>
                         <small>{{getCategory(course.category_id)}}</small>,
@@ -55,6 +61,33 @@
                 <br />
             </template>
         </b-modal>
+        <b-modal id="modal-create" title="New course">
+            <b-row>
+                <b-col md="3">
+                    <label><h5>Category:</h5></label>
+                </b-col>
+                <b-col md="9">
+                    <b-select v-model="newCourse.category" :options="categories" text-field="name" value-field="id">
+                        <template v-slot:first>
+                            <b-form-select-option :value="null" disabled>-- Please select a category --</b-form-select-option>
+                        </template>
+                    </b-select>
+                </b-col>
+            </b-row>
+            <br />
+            <b-row>
+                <b-col md="3">
+                    <label>Course name:</label>
+                </b-col>
+                <b-col md="9">
+                    <b-input v-model="newCourse.title"></b-input>
+                </b-col>
+            </b-row>
+            <template v-slot:modal-footer>
+                <b-button variant="secondary" @click="$bvModal.hide('modal-create')">Cancel</b-button>
+                <b-button variant="primary" @click="$bvModal.hide('modal-create'), addCourse()">Create</b-button>
+            </template>
+        </b-modal>
     </b-container>
 </template>
 
@@ -72,6 +105,10 @@
                 newCourse: {
                     title: null,
                     category: null
+                },
+                filter: {
+                    category: 'any',
+                    title: ''
                 }
             }
         },
@@ -102,6 +139,8 @@
                 .then(response => {
                     this.courses.push(response.data);
                     this.courses[this.courses.length-1].author = {id: this.user.id, name: this.user.name};
+                    this.newCourse.title = null;
+                    this.newCourse.category = null;
                 });
             },
 
