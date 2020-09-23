@@ -33,6 +33,9 @@
                 axios.post('/api/searchCourses',{searchString: this.searchString})
                 .then(response=>{
                     this.courses=response.data;
+                    this.courses.forEach(course=>{
+                        course.category.name=course.category.name + '/' + course.title;
+                    });
                 });
             },
 
