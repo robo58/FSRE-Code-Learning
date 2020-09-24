@@ -1,6 +1,9 @@
 <template>
     <div>
         <b-list-group class="p-3">
+            <b-list-group-item v-if="documents.length===0">
+                <h4 class="text-center">No documentation..</h4>
+            </b-list-group-item>
             <b-list-group-item
                 size="sm"
                 v-for="document in documents"

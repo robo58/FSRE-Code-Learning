@@ -7,6 +7,7 @@
             <b-card class="text-center">
                 <b-card-body>
                     <b-list-group class="justify-content-center py-4">
+                        <h4 class="text-center" v-if="contacts.length===0">No messages..</h4>
                         <b-list-group-item v-for="contact in contacts" :key="contact.id" style="border: 0 white;">
                             <user-messages :user="user" :contact="contact"></user-messages>
                         </b-list-group-item>
