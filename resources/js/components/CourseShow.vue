@@ -8,9 +8,19 @@
         <b-col>
             <b-button variant="info" class="text-white" @click="showSidebar = !showSidebar"><b-icon-arrow-bar-left v-if="showSidebar" /><b-icon-arrow-bar-right v-else /></b-button>
             <h1 class="text-center">{{ course.title }}</h1>
-
-            <b-progress height="25px" :value="progress" :max="max" show-progress class="mb-3"></b-progress>
-
+            <b-row no-gutters style="align-items: center;">
+                <b-col sm="2" class="bg-info py-3">
+                    <h4 class="text-center text-white">
+                        Documentation &nbsp&nbsp<b-button @click="visible=!visible" ><b-icon-arrow-bar-down v-if="!visible" class="mx-3" /><b-icon-arrow-bar-up v-else class="mx-3" /></b-button>
+                    </h4>
+                    <b-collapse :visible="visible">
+                        <document-get :part_id="selected"></document-get>
+                    </b-collapse>
+                </b-col>
+                <b-col>
+                    <b-progress height="25px" :value="progress" :max="max" show-progress class="mb-3"></b-progress>
+                </b-col>
+            </b-row>
             <div v-for="part in parts" :key="part.id" v-if="part.id === selected">
                 <b-jumbotron>
                     <template v-slot:header>{{ part.title }}</template>
@@ -45,11 +55,12 @@
     import ExerciseShow from "./helpers/ExerciseShow";
     import ExerciseCompleted from "./helpers/ExerciseCompleted";
     import ShowVideo from "./helpers/ShowVideo";
+    import DocumentGet from "./helpers/DocumentGet";
 
 
     export default {
         name: "CourseShow",
-        components: {ExerciseShow,ExerciseCompleted,ShowVideo},
+        components: {ExerciseShow,ExerciseCompleted,ShowVideo,DocumentGet},
         props: ['course','user'],
         data() {
             return {
@@ -59,6 +70,7 @@
                 exercises:[],
                 completed: [],
                 progress: 0,
+                visible: false,
                 max: 100
             }
         },

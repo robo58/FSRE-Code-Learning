@@ -57,6 +57,7 @@
 <script>
     import LastCourse from "./helpers/LastCourse";
     import EnrolledCourses from "./helpers/EnrolledCourses";
+    import MessageFeed from "./helpers/MessageFeed";
     export default{
         props:{
             user:{
@@ -69,6 +70,6 @@
                 teacher: false
             }
         },
-        components: {LastCourse,EnrolledCourses},
+        components: {LastCourse,EnrolledCourses,MessageFeed},
     }
 </script>

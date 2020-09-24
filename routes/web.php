@@ -53,9 +53,12 @@ Route::patch('/courseParts/{coursePart}/video', 'CoursePartController@updateVide
 
 Route::get('/files/create', 'SuperAdmin\DocumentsController@create')->name('files-create');
 Route::post('/files', 'SuperAdmin\DocumentsController@store')->name('files-upload');
+Route::delete('/files/{document}', 'SuperAdmin\DocumentsController@destroy')->name('files-delete');
+Route::get('/files/{part}', 'SuperAdmin\DocumentsController@get')->name('files-get');
 Route::get('/files/all', 'SuperAdmin\DocumentsController@index')->name('files-show-all');
 Route::get('/files/{id}', 'SuperAdmin\DocumentsController@show')->name('file-show');
 Route::get('/files/download/{file}', 'SuperAdmin\DocumentsController@download');
+
 
 Route::get('/inbox',function (){
     return view('inbox');

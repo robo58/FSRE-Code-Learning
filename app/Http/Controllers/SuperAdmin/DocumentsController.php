@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\CoursePart;
+use App\CourseProgress;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Documents;
@@ -48,9 +50,15 @@ class DocumentsController extends Controller
         }
         $data->title = $request->title;
         $data->description = $request->description;
+        $data->course_part_id = $request->course_part_id;
         $data->save();
 
-        return redirect()->back();
+        return response($data, 200);
+    }
+
+    public function get(CoursePart $part)
+    {
+        return response(Documents::where('course_part_id',$part->id)->get()->toJson(),200);
     }
 
     /**
@@ -68,13 +76,14 @@ class DocumentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Documents $file
      * @return \Illuminate\Http\Response
      */
 
-    public function download($file)
+    public function download(Documents $file)
     {
-        return response()->download('uploads/'.$file);
+        $name = preg_replace('/\s+/', '_', $file->title);
+        return response()->download('uploads/'.$file->file, $name);
     }
 
     public function edit($id)
@@ -100,8 +109,10 @@ class DocumentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Documents $document)
     {
-        //
+        $document->delete();
+
+        return response(null,204);
     }
 }

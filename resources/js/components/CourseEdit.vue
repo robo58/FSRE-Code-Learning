@@ -27,6 +27,9 @@
                             ></b-form-radio-group>
                         </b-form-group>
                     </b-col>
+                    <b-col sm="1" class="mx-3">
+                        <b-button size="sm" v-b-modal.document-add variant="secondary">Manage documents</b-button>
+                    </b-col>
                     <b-col sm="1">
                         <b-button variant="danger" @click="deletePart(part)"><b-icon-trash /></b-button>
                     </b-col>
@@ -98,6 +101,10 @@
                 <b-button variant="primary" @click="$bvModal.hide('modal-edit-mainTitle'), editMainTitle()">Update</b-button>
             </template>
         </b-modal>
+        <b-modal id="document-add" title="Manage documents">
+            <document-add :part="selected"></document-add>
+        </b-modal>
+
     </b-row>
 </template>
 
@@ -106,9 +113,10 @@
     import CoursePartEditText from "./helpers/CoursePartEditText";
     import CoursePartEditVideo from "./helpers/CoursePartEditVideo";
     import ExerciseInput from "./helpers/ExerciseInput";
+    import DocumentAdd from "./helpers/DocumentAdd";
     export default {
         name: "CourseEdit",
-        components: {ExerciseInput, CoursePartEditVideo, CoursePartEditText},
+        components: {ExerciseInput, CoursePartEditVideo, CoursePartEditText,DocumentAdd},
         props: ['course'],
         data() {
             return {
