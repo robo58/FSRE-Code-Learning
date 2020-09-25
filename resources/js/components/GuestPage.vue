@@ -10,9 +10,10 @@
                     bg-variant="primary"
                     text-variant="white"
                 >
-                    <div class="px-3" v-if="user===null">
+                    <div class="px-2" v-if="user===null">
                         <b-button variant="light" href="/register">Create an account</b-button><br>
                         <a class="text-white text-decoration-underline" href="/login">Already have an account?</a>
+                        <h5 style="float:right">Volite programiranje ? Nikada se niste susreli, <br>ali zanima vas što je to ? Pridružite se Robertu i meni, <br>započnite jedan od naših brojnih tečajeva <br> i upustite se u novu avanturu. </h5>
                     </div>
                     <div v-else>
                         <p>Welcome {{ user.name }}.</p>
@@ -20,7 +21,7 @@
                 </b-jumbotron>
             </b-col>
         </b-row>
-        
+
         <!--  Author info  -->
         <b-row class="my-3 bg-info rounded">
             <b-col sm="2"></b-col>
@@ -98,6 +99,7 @@
         </b-row>
 
         <!--  Contact form  -->
+        <form action="/" method="POST">
         <b-row class="my-3 bg-primary rounded justify-content-center">
             <b-col>
                 <div class="my-3 text-white">
@@ -134,6 +136,7 @@
                 </div>
             </b-col>
         </b-row>
+        </form>
 
     </b-container>
 </template>
