@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-URL::forceRootUrl('https://studenti.sum.ba/projekti/fsre/2020/g0');
+URL::forceRootUrl('https://http://studenti.sum.ba:81/2020/g0');
 
 Route::get('/', function (){
     return view('welcome');
