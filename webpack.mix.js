@@ -12,6 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix
-    .setResourceRoot("")
+    .setResourceRoot("/2020/g0")
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
