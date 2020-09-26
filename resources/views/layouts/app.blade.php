@@ -35,16 +35,16 @@
 
                     {{-- Left aligned nav items --}}
                     <b-navbar-nav>
-                        <b-nav-item href="/categories">Categories</b-nav-item>
+                        <b-nav-item href="{{ route('categories.index') }}">Categories</b-nav-item>
                     </b-navbar-nav>
                     <b-navbar-nav>
-                        <b-nav-item href="/courses">Courses</b-nav-item>
+                        <b-nav-item href="{{ route('courses.index') }}">Courses</b-nav-item>
                     </b-navbar-nav>
                     <b-navbar-nav>
-                        <b-nav-item href="/teachers">Teachers</b-nav-item>
+                        <b-nav-item href="{{ route('teachers') }}">Teachers</b-nav-item>
                     </b-navbar-nav>
                     <b-navbar-nav>
-                        <b-nav-item href="/students">Students</b-nav-item>
+                        <b-nav-item href="{{ route('students') }}">Students</b-nav-item>
                     </b-navbar-nav>
 
                     <!-- Right aligned nav items -->

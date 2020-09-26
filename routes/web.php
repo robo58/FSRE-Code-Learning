@@ -16,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'WelcomeController@index')->name('welcome');
+URL::forceRootUrl('https://studenti.sum.ba/projekti/fsre/2020/g0');
+
+Route::get('/', function (){
+    return view('welcome');
+});
 Route::post('/', 'WelcomeController@store')->name('contact-us');
 
 Auth::routes(['verify' => true]);
