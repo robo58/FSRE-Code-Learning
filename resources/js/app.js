@@ -10,6 +10,8 @@ import vue from "vue";
 require('./bootstrap');
 import { BootstrapVue,BootstrapVueIcons } from 'bootstrap-vue';
 window.Vue = vue;
+window.Vue.config.baseurl = process.env.BASE_URL
+
 import VueMce from 'vue-mce';
 import axios from "axios";
 /**
