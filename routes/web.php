@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-URL::forceRootUrl('http://studenti.sum.ba:81/2020/g0');
-
 Route::get('/', function (){
     return view('welcome');
 });
