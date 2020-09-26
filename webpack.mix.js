@@ -11,11 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.options({
+    resourceRoot: process.env.VUE_PUBLIC_PATH,
+}).webpackConfig({
+    output: {
+        publicPath: process.env.VUE_PUBLIC_PATH
+    },
+}).js('resources/js/app.js', 'public/js').sass('resources/sass/app.scss', 'public/css');
 
-module.exports = {
-    NODE_ENV: '"production"',
-    BASE_URL: '"http://studenti.sum.ba:81/2020/g0"',
-}
 
