@@ -99,7 +99,6 @@
         </b-row>
 
         <!--  Contact form  -->
-        <form action="/" method="POST">
         <b-row class="my-3 bg-primary rounded justify-content-center">
             <b-col>
                 <div class="my-3 text-white">
@@ -110,7 +109,7 @@
                         label-align-sm="right"
                         label-for="contact-name"
                     >
-                        <b-form-input id="contact-name"></b-form-input>
+                        <b-form-input v-model="contact.name"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -119,7 +118,7 @@
                         label-align-sm="right"
                         label-for="contact-email"
                     >
-                        <b-form-input id="contact-email"></b-form-input>
+                        <b-form-input v-model="contact.email"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -128,25 +127,42 @@
                         label-align-sm="right"
                         label-for="contact-message"
                     >
-                        <b-form-textarea id="contact-message"></b-form-textarea>
+                        <b-form-textarea v-model="contact.message"></b-form-textarea>
                     </b-form-group>
                     <div class="d-flex justify-content-center">
-                        <b-button type="submit" variant="secondary">Submit</b-button>
+                        <b-button variant="secondary"
+                                  :disabled="contact.name === '' || contact.email === '' || contact.message === ''"
+                                  @click="submitForm"
+                        >Submit</b-button>
                     </div>
                 </div>
             </b-col>
         </b-row>
-        </form>
 
     </b-container>
 </template>
 
 <script>
+    import axios from 'axios';
     export default{
         props:{
             user:{
                 default: null,
                 type: Object
+            }
+        },
+        data(){
+            return{
+                contact:{
+                    name: '',
+                    email: '',
+                    message: ''
+                }
+            }
+        },
+        methods:{
+            submitForm(){
+                axios.post('/',{ name: this.contact.name, email: this.contact.email, message: this.contact.message});
             }
         }
     }
