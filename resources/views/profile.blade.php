@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row py-4">
             <div class="col-md-12">
-                <img src="uploads/avatars/{{ $user->avatar }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
+                <img src="/uploads/avatars/{{ $user->avatar }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
                 <h2>{{$user->name}} 's Profile</h2>
                 @if($user->id == \Illuminate\Support\Facades\Auth::id())
                     <div v-if="!setEdit">

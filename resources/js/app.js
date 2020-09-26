@@ -10,12 +10,10 @@ import vue from "vue";
 require('./bootstrap');
 import { BootstrapVue,BootstrapVueIcons } from 'bootstrap-vue';
 window.Vue = vue;
-Vue.config.baseurl = "http://studenti.sum.ba:81/2020/g0"
 
 import VueMce from 'vue-mce';
 import axios from "axios";
 
-axios.defaults.baseURL = 'http://studenti.sum.ba:81/2020/g0';
 
 /**
  * The following block of code may be used to automatically register your

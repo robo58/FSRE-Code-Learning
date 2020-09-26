@@ -25,7 +25,6 @@ return [
     | services the application utilizes. Set this in your ".env" file.
     |
     */
-    'public_path' => env('APP_PUBLIC_PATH', ''),
     'env' => env('APP_ENV', 'production'),
 
     /*
