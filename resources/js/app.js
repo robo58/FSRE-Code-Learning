@@ -10,7 +10,7 @@ import vue from "vue";
 require('./bootstrap');
 import { BootstrapVue,BootstrapVueIcons } from 'bootstrap-vue';
 window.Vue = vue;
-window.Vue.config.baseurl = process.env.BASE_URL
+window.Vue.config.baseurl = "http://studenti.sum.ba:81/2020/g0"
 
 import VueMce from 'vue-mce';
 import axios from "axios";

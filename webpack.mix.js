@@ -11,7 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-mix
-    .setResourceRoot("/2020/g0")
-    .js('resources/js/app.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
+
+module.exports = {
+    NODE_ENV: '"production"',
+    BASE_URL: '"http://studenti.sum.ba:81/2020/g0"',
+}
+
