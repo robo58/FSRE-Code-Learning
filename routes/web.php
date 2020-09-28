@@ -23,7 +23,9 @@ Route::post('/', 'WelcomeController@store')->name('contact-us');
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+
 Route::resource('categories', 'CategoryController');
 Route::resource('courses', 'CourseController');
 Route::resource('courseParts', 'CoursePartController');

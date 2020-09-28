@@ -29,9 +29,6 @@
                 state: null
             }
         },
-        created() {
-            this.answer = this.a.substring(0,Math.floor(this.a.length/2.5));
-        },
         methods:{
             checkAnswer(){
                 this.state =  this.answer === this.a;
